@@ -5,14 +5,26 @@ import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+class SignUpScreen extends StatefulWidget {
   static String id = "Sign UP Screen";
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   FireBaseService _authService = FireBaseService();
+
   TextEditingController _name = TextEditingController();
+
   TextEditingController _email = TextEditingController();
+
   TextEditingController _userName = TextEditingController();
+
   TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,15 +39,13 @@ class SignUpScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: kPrimaryColor,
-                          size: 24,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        "assets/images/Arrow back.png",
+                        width: MediaQuery.of(context).size.width * 0.07,
+                      ),
+                    ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.15),
                     Text(
                       "Create account",
@@ -46,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 CustomFormField(
                   controller: _name,
                   hintText: "Name",
@@ -54,7 +64,7 @@ class SignUpScreen extends StatelessWidget {
                     if (value.isEmpty) return "Please enter your name";
                   },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                 CustomFormField(
                   hintText: "Email-address",
                   controller: _email,
@@ -62,14 +72,14 @@ class SignUpScreen extends StatelessWidget {
                     if (value.isEmpty) return "Please enter valid email";
                   },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                 CustomFormField(
                     hintText: "Username",
                     controller: _userName,
                     validator: (value) {
                       if (value.isEmpty) return "Please enter valid username";
                     }),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                 CustomFormField(
                   hintText: "Password",
                   controller: _password,
@@ -78,7 +88,7 @@ class SignUpScreen extends StatelessWidget {
                       return "Please enter Strong password";
                   },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                 CustomFormField(
                   hintText: "Confirm password",
                   validator: (value) {

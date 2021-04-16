@@ -2,15 +2,26 @@ import 'package:clerk/constants.dart';
 import 'package:clerk/view/signup_screen/signup_screen.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'components/default_button.dart';
 import 'components/Custom_form_field.dart';
 
-class SignInScreen extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+class SignInScreen extends StatefulWidget {
   static String id = "Sign In Screen";
+
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   TextEditingController _email = TextEditingController();
+
   TextEditingController _password = TextEditingController();
+
   FireBaseService _authService = FireBaseService();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,7 +29,7 @@ class SignInScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
         body: Padding(
-          padding: EdgeInsets.all(25),
+          padding: EdgeInsets.all(40),
           child: Form(
             key: _formKey,
             child: Column(
@@ -53,8 +64,11 @@ class SignInScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  press: () {
+                  press: () async {
                     if (_formKey.currentState.validate()) {
+                      SharedPreferences _prefs =
+                          await SharedPreferences.getInstance();
+                      _prefs.setBool("userLogin", true);
                       _authService.signInWithEmailAndPassword(
                           _email.text, _password.text, context);
                     }

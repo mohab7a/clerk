@@ -8,15 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var loggedIn = prefs.getBool("userLogin");
-  print(loggedIn);
-  Firebase.initializeApp();
+  var loggedIn = prefs.getBool("userLogin") ?? false;
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Clerk',
-    initialRoute: loggedIn == true ? HomeScreen.id : SplashScreen.id,
+    initialRoute: loggedIn == true ? HomeScreen.id : SignInScreen.id,
     routes: {
       SplashScreen.id: (context) => SplashScreen(),
       SignInScreen.id: (context) => SignInScreen(),
