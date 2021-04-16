@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "791270263049",
+    "project_id": "clerk-28be2",
+    "storage_bucket": "clerk-28be2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791270263049:android:ce102df661bbad121b2bd8",
+        "android_client_info": {
+          "package_name": "com.example.clerk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791270263049-e254j4p9nme8chfna6qe5takbcefsdel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.clerk",
+            "certificate_hash": "67693bab56723481686f9d8257e8ade43a1d7464"
+          }
+        },
+        {
+          "client_id": "791270263049-sccdht7gv2muab6er8jopns1s6jfiqog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgx-aJ1lR-HcDVpqEbXcwqBmip_omRTms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791270263049-sccdht7gv2muab6er8jopns1s6jfiqog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
