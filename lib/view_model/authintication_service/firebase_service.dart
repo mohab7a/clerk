@@ -20,6 +20,6 @@ class FireBaseService {
       "email": email,
       "username": username,
       "password": password
-    }).then((value) => Navigator.pushNamed(context, HomeScreen.id));
+    }).then((value) => Navigator.pushReplacementNamed(context, HomeScreen.id));
   }
 }
