@@ -33,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onWillPop: () async => false,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: backgroundColor,
+          backgroundColor: kBackgroundColor,
           body: Padding(
             padding: EdgeInsets.all(20),
             child: Form(
