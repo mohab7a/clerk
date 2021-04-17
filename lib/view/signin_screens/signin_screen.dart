@@ -27,7 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor,
+        backgroundColor: kBackgroundColor,
         body: Padding(
           padding: EdgeInsets.all(40),
           child: Form(
