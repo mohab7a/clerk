@@ -1,4 +1,5 @@
 import 'package:clerk/view/home_screen/home_screen.dart';
+import 'package:clerk/view/profile_screen/profile_screen.dart';
 import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:clerk/view/signup_screen/signup_screen.dart';
 import 'package:clerk/view/splash_screen.dart';
@@ -20,7 +21,8 @@ Future<void> main() async {
       SplashScreen.id: (context) => SplashScreen(),
       SignInScreen.id: (context) => SignInScreen(),
       SignUpScreen.id: (context) => SignUpScreen(),
-      HomeScreen.id: (context) => HomeScreen()
+      HomeScreen.id: (context) => HomeScreen(),
+      ProfileScreen.id: (context) => ProfileScreen()
     },
   ));
 }

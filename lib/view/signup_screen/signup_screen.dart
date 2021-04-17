@@ -72,7 +72,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     hintText: "Email-address",
                     controller: _email,
                     validator: (value) {
-                      if (value.isEmpty) return "Please enter valid email";
+                      if (value.isEmpty || value.contains("@"))
+                        return "Please enter valid email";
                     },
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
