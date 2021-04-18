@@ -90,6 +90,11 @@ class HomeCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
+          boxShadow: [BoxShadow(
+            color: Color(0xffe0e0e0),
+            blurRadius: 7,
+            spreadRadius: 5,
+          )],
         ),
         width: double.infinity,
         height: size.height * 0.15,
@@ -103,7 +108,7 @@ class HomeCard extends StatelessWidget {
                 style: TextStyle(
                     color: kPrimaryColor,
                     fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.w500),
               ),
               Image.asset(vector, width: size.width * 0.30)
             ],

@@ -40,33 +40,42 @@ void initState() {
       ),
       body: //SizedBox.expand(child: child),
       screens[widget.selectedItem],
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [BoxShadow(
+            color: Color(0xffe0e0e0),
+            blurRadius: 7,
+            spreadRadius: 5,
+          )],
         ),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          onTap: (newIndex) => setState(() => widget.selectedItem = newIndex),
-          currentIndex: widget.selectedItem,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.gesture), title: Text("Error Correction")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.translate), title: Text("Translation")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.gesture),
-                title: Text(
-                  "Summarization",
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.text_fields), title: Text("Text Extraction")),
-          ],
-          selectedItemColor: kPrimaryColor,
-          unselectedItemColor: Color(0xFF8E8E8E),
-         //backgroundColor: Colors.black,
-          type: BottomNavigationBarType.fixed,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            onTap: (newIndex) => setState(() => widget.selectedItem = newIndex),
+            currentIndex: widget.selectedItem,
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.gesture), title: Text("Error Correction")),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.translate), title: Text("Translation")),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.gesture),
+                  title: Text(
+                    "Summarization",
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.text_fields), title: Text("Text Extraction")),
+            ],
+            selectedItemColor: kPrimaryColor,
+            unselectedItemColor: Color(0xFF8E8E8E),
+           //backgroundColor: Colors.black,
+            type: BottomNavigationBarType.fixed,
 
+          ),
         ),
       ),
     );
