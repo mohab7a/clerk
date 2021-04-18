@@ -2,6 +2,8 @@ import 'package:clerk/constants.dart';
 import 'package:clerk/view/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../nav_bar.dart';
+
 class HomeScreen extends StatelessWidget {
   static String id = "Home Screen";
   @override
@@ -9,10 +11,10 @@ class HomeScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: kBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: backgroundColor,
+          backgroundColor: kBackgroundColor,
           leading: GestureDetector(
             onTap: () => Navigator.pushNamed(context, ProfileScreen.id),
             child: Icon(
@@ -35,19 +37,27 @@ class HomeScreen extends StatelessWidget {
                     size: size,
                     text: "Error Correction",
                     vector: "assets/images/Mask Group 10.png",
+                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(0)));},
                   ),
                   HomeCard(
                       size: size,
                       text: "Translation",
-                      vector: "assets/images/Mask Group 8.png"),
+                      vector: "assets/images/Mask Group 8.png",
+                      onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(1)));},
+                  ),
                   HomeCard(
                       size: size,
                       text: "Summarization",
-                      vector: "assets/images/Mask Group 1.png"),
+                      vector: "assets/images/Mask Group 1.png",
+                      onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(2)));},
+                  ),
                   HomeCard(
                       size: size,
                       text: "Text Extraction",
-                      vector: "assets/images/Mask Group 9.png"),
+                      vector: "assets/images/Mask Group 9.png",
+                      onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(3)));},
+
+                  ),
                 ],
               ),
             ),
@@ -80,6 +90,11 @@ class HomeCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
+          boxShadow: [BoxShadow(
+            color: Color(0xffe0e0e0),
+            blurRadius: 7,
+            spreadRadius: 5,
+          )],
         ),
         width: double.infinity,
         height: size.height * 0.15,
@@ -93,7 +108,7 @@ class HomeCard extends StatelessWidget {
                 style: TextStyle(
                     color: kPrimaryColor,
                     fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.w500),
               ),
               Image.asset(vector, width: size.width * 0.30)
             ],
