@@ -23,7 +23,7 @@ Future<void> main() async {
       SplashScreen.id: (context) => SplashScreen(),
       SignInScreen.id: (context) => SignInScreen(),
       SignUpScreen.id: (context) => SignUpScreen(),
-      NavigationBar.id:(context)=>NavigationBar(),
+     // NavigationBar.id:(context)=>NavigationBar(),
       HomeScreen.id: (context) => HomeScreen(),
       HomeScreen.id: (context) => HomeScreen(),
       ProfileScreen.id: (context) => ProfileScreen()

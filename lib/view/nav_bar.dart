@@ -3,19 +3,19 @@ import 'package:clerk/view/summarization_screen/summarization-screen.dart';
 import 'package:clerk/view/text_extraction_screen/text_extraction_screen.dart';
 import 'package:clerk/view/translation_screen/translation_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
 import '../constants.dart';
 
 class NavigationBar extends StatefulWidget {
   static String id = "NavBarScreen";
+  NavigationBar(this.selectedItem);
+   int selectedItem = 0;
 
   @override
   _NavigationBarState createState() => _NavigationBarState();
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-  int _index = 0;
+
   @override
 void initState() {
     super.initState();
@@ -24,10 +24,10 @@ void initState() {
   Widget build(BuildContext context) {
     List<Widget> screens = [];
     screens = <Widget>[
-      TextExtractionScreen(),
-      SummarizationScreen(),
-      TranslationScreen(),
       ErrorCorrectionScreen(),
+      TranslationScreen(),
+      SummarizationScreen(),
+      TextExtractionScreen(),
     ];
 
     return Scaffold(
@@ -39,7 +39,7 @@ void initState() {
         centerTitle: true,
       ),
       body: //SizedBox.expand(child: child),
-      screens[_index],
+      screens[widget.selectedItem],
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.0),
@@ -48,8 +48,8 @@ void initState() {
         child: BottomNavigationBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          onTap: (newIndex) => setState(() => _index = newIndex),
-          currentIndex: _index,
+          onTap: (newIndex) => setState(() => widget.selectedItem = newIndex),
+          currentIndex: widget.selectedItem,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.gesture), title: Text("Error Correction")),
             BottomNavigationBarItem(
