@@ -49,9 +49,9 @@ void initState() {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [BoxShadow(
-            color: Color(0xffe0e0e0),
-            blurRadius: 7,
+            color: Colors.black12,
             spreadRadius: 5,
+            blurRadius: 7,
           )],
         ),
         child: ClipRRect(
@@ -65,16 +65,19 @@ void initState() {
             onTap: (newIndex) => setState(() => widget.selectedItem = newIndex),
             currentIndex: widget.selectedItem,
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.gesture), title: Text("Error Correction")),
+              BottomNavigationBarItem(icon: Icon(Icons.gesture),
+                  title: Text("Error Correction",textScaleFactor: 0.9,)),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.translate), title: Text("Translation")),
+                  icon: Icon(Icons.translate),
+                  title: Text("Translation", textScaleFactor: 0.9,),),
               BottomNavigationBarItem(
                   icon: Icon(Icons.gesture),
                   title: Text(
-                    "Summarization",
+                    "Summarization", textScaleFactor: 0.9,
                   )),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.text_fields), title: Text("Text Extraction")),
+                  icon: Icon(Icons.text_fields),
+                  title: Text("Text Extraction", textScaleFactor: 0.9,)),
             ],
             selectedItemColor: kPrimaryColor,
             unselectedItemColor: Color(0xFF8E8E8E),

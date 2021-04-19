@@ -89,9 +89,9 @@ class HomeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
           boxShadow: [BoxShadow(
-            color: Color(0xffe0e0e0),
-            blurRadius: 7,
+            color: Colors.black12,
             spreadRadius: 5,
+            blurRadius: 7,
           )],
         ),
         width: double.infinity,
