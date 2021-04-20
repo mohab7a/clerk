@@ -27,7 +27,7 @@ class ErrorCorrectionScreen extends StatelessWidget {
           decoration: InputDecoration(
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: 'Enter Text'),
+              hintText: 'Enter Text Here'),
         ),
       ),
     );

@@ -1,7 +1,10 @@
+import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
+import 'components/profile_list_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
   static String id = "Profile Screen";
@@ -23,11 +26,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  Future _data;
-
   @override
   initState() {
-    _data = getData();
+    getData();
     super.initState();
   }
 
@@ -75,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: FutureBuilder(
-                      future: _data,
+                      future: getData(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Column(
@@ -95,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 size: size,
                                 data: data,
                                 leadingIcon:
-                                    "assets/images/Icon material-email.png",
+                                "assets/images/Icon material-email.png",
                                 titleName: "Email",
                                 field: "email",
                               ),
@@ -106,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 size: size,
                                 data: data,
                                 leadingIcon:
-                                    "assets/images/Icon simple-email.png",
+                                "assets/images/Icon simple-email.png",
                                 titleName: "Username",
                                 field: "username",
                               ),
@@ -121,12 +122,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 titleName: "Password",
                                 field: "password",
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               ListTile(
                                 leading: Image.asset(
                                   "assets/images/Icon awesome-bookmark.png",
                                   width: size.width * 0.06,
                                 ),
                                 title: Text("Saved"),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  prefs.remove("userLogin");
+                                  Navigator.pushReplacementNamed(
+                                      context, SignInScreen.id);
+                                },
+                                child: ListTile(
+                                  leading: Icon(
+                                    Icons.logout,
+                                    size: 30,
+                                    color: kPrimaryColor,
+                                  ),
+                                  title: Text("Log Out"),
+                                ),
                               )
                             ],
                           );
@@ -139,33 +163,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ]),
           ),
         ));
-  }
-}
-
-class UserListTile extends StatelessWidget {
-  const UserListTile({
-    Key key,
-    @required this.size,
-    this.data,
-    this.titleName,
-    this.field,
-    this.leadingIcon,
-  }) : super(key: key);
-
-  final Size size;
-  final Map<String, dynamic> data;
-  final String titleName, field, leadingIcon;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.asset(
-        leadingIcon,
-        width: size.width * 0.06,
-      ),
-      title: Text(titleName),
-      subtitle: Text(data[field]),
-      trailing: Image.asset("assets/images/Icon material-edit.png",
-          width: size.width * 0.06),
-    );
   }
 }
