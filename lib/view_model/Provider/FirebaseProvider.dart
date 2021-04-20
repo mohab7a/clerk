@@ -12,6 +12,7 @@ class FireStoreProvider extends ChangeNotifier {
         .collection("Users")
         .doc(_auth.currentUser.email)
         .set({"name": name, "username": userName, "password": password});
+    notifyListeners();
   }
 
   Future getData() async {

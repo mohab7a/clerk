@@ -1,8 +1,6 @@
 import 'package:clerk/view/signin_screens/components/Custom_form_field.dart';
 import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,11 +74,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               UserListTile(
                                 size: size,
                                 data: Provider.of<FireStoreProvider>(context)
-                                    .data,
+                                    .data['name'],
                                 leadingIcon:
                                     "assets/images/Icon awesome-user-alt.png",
                                 titleName: "Name",
-                                field: "name",
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
                                 press: () {
@@ -96,11 +93,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               UserListTile(
                                 size: size,
                                 data: Provider.of<FireStoreProvider>(context)
-                                    .data,
+                                    .data["email"],
                                 leadingIcon:
                                     "assets/images/Icon material-email.png",
                                 titleName: "Email",
-                                field: "email",
                                 trailingIcon: "",
                               ),
                               SizedBox(
@@ -109,11 +105,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               UserListTile(
                                 size: size,
                                 data: Provider.of<FireStoreProvider>(context)
-                                    .data,
+                                    .data["username"],
                                 leadingIcon:
                                     "assets/images/Icon simple-email.png",
                                 titleName: "Username",
-                                field: "username",
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
                               ),
@@ -123,11 +118,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               UserListTile(
                                 size: size,
                                 data: Provider.of<FireStoreProvider>(context)
-                                    .data,
+                                    .data['password'],
                                 leadingIcon:
                                     "assets/images/Icon feather-lock.png",
                                 titleName: "Password",
-                                field: "password",
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
                               ),
@@ -178,15 +172,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 AlertDialog alert(context) {
+  TextEditingController _name = TextEditingController();
   return AlertDialog(
     title: Text("Edit Your Name"),
     backgroundColor: kDialogBoxColor,
     content: CustomFormField(
-      controller: Provider.of<FireStoreProvider>(context).data['name'],
+      controller: _name,
+      hintText: Provider.of<FireStoreProvider>(context).data['name'],
     ),
     actions: [
-      FlatButton(onPressed: () {}, child: Text("Save")),
-      FlatButton(onPressed: () {}, child: Text("Cancel"))
+      FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+            Provider.of<FireStoreProvider>(context).setData(name: _name);
+          },
+          child: Text("Save")),
+      FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Cancel"))
     ],
   );
 }
