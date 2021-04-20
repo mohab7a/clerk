@@ -7,7 +7,8 @@ class ErrorCorrectionScreen extends StatelessWidget {
     return Container(
       color: kBackgroundColor,
       child: Container(
-        margin: EdgeInsets.only(left: 16, right: 16, top: 20,bottom: 50),
+        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+        margin: EdgeInsets.only(left: 16, right: 16, top: 20,bottom: 30),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -19,6 +20,16 @@ class ErrorCorrectionScreen extends StatelessWidget {
                 offset: Offset(1,3)
               ),
             ],
+        ),
+        child: TextField(
+          maxLines: 1000,
+          showCursor: false,
+          decoration: InputDecoration(
+
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            hintText: 'Enter Text'
+          ),
         ),
       ),
     );
