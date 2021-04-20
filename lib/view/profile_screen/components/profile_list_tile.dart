@@ -8,11 +8,14 @@ class UserListTile extends StatelessWidget {
     this.titleName,
     this.field,
     this.leadingIcon,
+    this.trailingIcon,
+    this.press,
   }) : super(key: key);
 
   final Size size;
   final Map<String, dynamic> data;
-  final String titleName, field, leadingIcon;
+  final String titleName, field, leadingIcon, trailingIcon;
+  final Function press;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +26,10 @@ class UserListTile extends StatelessWidget {
       ),
       title: Text(titleName),
       subtitle: Text(data[field]),
-      trailing: Image.asset("assets/images/Icon material-edit.png",
-          width: size.width * 0.06),
+      trailing: GestureDetector(
+        onTap: press,
+        child: Image.asset(trailingIcon, width: size.width * 0.06),
+      ),
     );
   }
 }
