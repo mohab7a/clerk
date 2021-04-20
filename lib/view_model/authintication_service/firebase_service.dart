@@ -7,7 +7,7 @@ class FireBaseService {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   void signInWithEmailAndPassword(var email, password, context) async {
-    _auth.signInWithEmailAndPassword(email: email, password: password);
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
     Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
 
@@ -15,7 +15,7 @@ class FireBaseService {
       var email, password, name, username, context) async {
     await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    _fireStore.collection("Users").doc(name).set({
+    _fireStore.collection("Users").doc(_auth.currentUser.email).set({
       "name": name,
       "email": email,
       "username": username,

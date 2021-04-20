@@ -66,11 +66,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   press: () async {
                     if (_formKey.currentState.validate()) {
+                      _authService.signInWithEmailAndPassword(
+                          _email.text, _password.text, context);
                       SharedPreferences _prefs =
                           await SharedPreferences.getInstance();
                       _prefs.setBool("userLogin", true);
-                      _authService.signInWithEmailAndPassword(
-                          _email.text, _password.text, context);
                     }
                   },
                 ),
