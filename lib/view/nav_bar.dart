@@ -1,4 +1,5 @@
 import 'package:clerk/view/error_correction_screen/error_correction_screen.dart';
+import 'package:clerk/view/home_screen/home_screen.dart';
 import 'package:clerk/view/summarization_screen/summarization-screen.dart';
 import 'package:clerk/view/text_extraction_screen/text_extraction_screen.dart';
 import 'package:clerk/view/translation_screen/translation_screen.dart';
@@ -33,9 +34,12 @@ class _NavigationBarState extends State<NavigationBar> {
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         elevation: 0,
-        title: Image.asset(
-          "assets/images/clerk logo.png",
-          width: MediaQuery.of(context).size.width * .25,
+        title: GestureDetector(
+          onTap: (){Navigator.pushReplacementNamed(context, HomeScreen.id);},
+          child: Image.asset(
+            "assets/images/clerk logo.png",
+            width: MediaQuery.of(context).size.width * .25,
+          ),
         ),
         automaticallyImplyLeading: true,
         centerTitle: true,

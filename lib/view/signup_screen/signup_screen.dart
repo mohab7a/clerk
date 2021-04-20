@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    press: () async {
+                    onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         SharedPreferences _prefs =
                             await SharedPreferences.getInstance();

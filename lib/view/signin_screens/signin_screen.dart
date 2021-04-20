@@ -64,7 +64,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  press: () async {
+                  onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       _authService.signInWithEmailAndPassword(
                           _email.text, _password.text, context);
