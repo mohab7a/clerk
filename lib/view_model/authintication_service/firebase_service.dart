@@ -8,7 +8,7 @@ class FireBaseService {
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   void signInWithEmailAndPassword(var email, password, context) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
-    Navigator.pushReplacementNamed(context, HomeScreen.id);
+    Navigator.pushNamedAndRemoveUntil(context, HomeScreen.id, (route) => false);
   }
 
   void createEmailAndPassword(
@@ -20,6 +20,6 @@ class FireBaseService {
       "email": email,
       "username": username,
       "password": password
-    }).then((value) => Navigator.pushReplacementNamed(context, HomeScreen.id));
+    }).then((value) => Navigator.pushNamedAndRemoveUntil(context, HomeScreen.id, (route) => false));
   }
 }
