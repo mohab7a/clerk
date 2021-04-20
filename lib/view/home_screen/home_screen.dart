@@ -9,60 +9,58 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: kBackgroundColor,
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: kBackgroundColor,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: kBackgroundColor,
-          leading: GestureDetector(
-            onTap: () => Navigator.pushNamed(context, ProfileScreen.id),
-            child: Icon(
-              Icons.account_circle_rounded,
-              color: kPrimaryColor,
-              size: 30,
+        leading: GestureDetector(
+          onTap: () => Navigator.pushNamed(context, ProfileScreen.id),
+          child: Icon(
+            Icons.account_circle_rounded,
+            color: kPrimaryColor,
+            size: 30,
+          ),
+        ),
+        title: Image.asset("assets/images/clerk header.png",
+            width: size.width * 0.24),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Container(
+            child: Column(
+              children: [
+                HomeCard(
+                  size: size,
+                  text: "Error Correction",
+                  vector: "assets/images/Mask Group 10.png",
+                  onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(0)));},
+                ),
+                HomeCard(
+                    size: size,
+                    text: "Translation",
+                    vector: "assets/images/Mask Group 8.png",
+                    onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(1)));},
+                ),
+                HomeCard(
+                    size: size,
+                    text: "Summarization",
+                    vector: "assets/images/Mask Group 1.png",
+                    onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(2)));},
+                ),
+                HomeCard(
+                    size: size,
+                    text: "Text Extraction",
+                    vector: "assets/images/Mask Group 9.png",
+                    onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(3)));},
+
+                ),
+              ],
             ),
           ),
-          title: Image.asset("assets/images/clerk header.png",
-              width: size.width * 0.24),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              child: Column(
-                children: [
-                  HomeCard(
-                    size: size,
-                    text: "Error Correction",
-                    vector: "assets/images/Mask Group 10.png",
-                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(0)));},
-                  ),
-                  HomeCard(
-                      size: size,
-                      text: "Translation",
-                      vector: "assets/images/Mask Group 8.png",
-                      onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(1)));},
-                  ),
-                  HomeCard(
-                      size: size,
-                      text: "Summarization",
-                      vector: "assets/images/Mask Group 1.png",
-                      onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(2)));},
-                  ),
-                  HomeCard(
-                      size: size,
-                      text: "Text Extraction",
-                      vector: "assets/images/Mask Group 9.png",
-                      onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBar(3)));},
-
-                  ),
-                ],
-              ),
-            ),
-          ]),
-        ),
+        ]),
       ),
     );
   }
@@ -91,9 +89,9 @@ class HomeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
           boxShadow: [BoxShadow(
-            color: Color(0xffe0e0e0),
-            blurRadius: 7,
+            color: Colors.black12,
             spreadRadius: 5,
+            blurRadius: 7,
           )],
         ),
         width: double.infinity,
