@@ -13,20 +13,21 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Map<String, dynamic> data;
   FirebaseAuth _auth = FirebaseAuth.instance;
+
   Future getData() async {
     final DocumentReference document = FirebaseFirestore.instance
         .collection("Users")
         .doc(_auth.currentUser.email);
     await document.get().then((snapshot) async {
-      setState(() {
-        data = snapshot.data();
-      });
+      data = snapshot.data();
     });
   }
 
+  Future _data;
+
   @override
   initState() {
-    getData();
+    _data = getData();
     super.initState();
   }
 
@@ -34,27 +35,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(
-            Icons.arrow_back,
-            color: kPrimaryColor,
+        backgroundColor: kBackgroundColor,
+        appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Icon(
+              Icons.arrow_back,
+              color: kPrimaryColor,
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: kBackgroundColor,
+          title: Text(
+            "Profile",
+            style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
           ),
         ),
-        elevation: 0,
-        backgroundColor: kBackgroundColor,
-        title: Text(
-          "Profile",
-          style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(children: [
               Stack(
                 children: [
                   CircleAvatar(
@@ -74,59 +74,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      UserListTile(
-                        size: size,
-                        data: data,
-                        leadingIcon: "assets/images/Icon awesome-user-alt.png",
-                        titleName: "Name",
-                        field: "name",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      UserListTile(
-                        size: size,
-                        data: data,
-                        leadingIcon: "assets/images/Icon material-email.png",
-                        titleName: "Email",
-                        field: "email",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      UserListTile(
-                        size: size,
-                        data: data,
-                        leadingIcon: "assets/images/Icon simple-email.png",
-                        titleName: "Username",
-                        field: "username",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      UserListTile(
-                        size: size,
-                        data: data,
-                        leadingIcon: "assets/images/Icon feather-lock.png",
-                        titleName: "Password",
-                        field: "password",
-                      ),
-                      ListTile(
-                        leading: Image.asset(
-                          "assets/images/Icon awesome-bookmark.png",
-                          width: size.width * 0.06,
-                        ),
-                        title: Text("Saved"),
-                      )
-                    ],
-                  ))
-            ],
+                  child: FutureBuilder(
+                      future: _data,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Column(
+                            children: [
+                              UserListTile(
+                                size: size,
+                                data: data,
+                                leadingIcon:
+                                    "assets/images/Icon awesome-user-alt.png",
+                                titleName: "Name",
+                                field: "name",
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              UserListTile(
+                                size: size,
+                                data: data,
+                                leadingIcon:
+                                    "assets/images/Icon material-email.png",
+                                titleName: "Email",
+                                field: "email",
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              UserListTile(
+                                size: size,
+                                data: data,
+                                leadingIcon:
+                                    "assets/images/Icon simple-email.png",
+                                titleName: "Username",
+                                field: "username",
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              UserListTile(
+                                size: size,
+                                data: data,
+                                leadingIcon:
+                                    "assets/images/Icon feather-lock.png",
+                                titleName: "Password",
+                                field: "password",
+                              ),
+                              ListTile(
+                                leading: Image.asset(
+                                  "assets/images/Icon awesome-bookmark.png",
+                                  width: size.width * 0.06,
+                                ),
+                                title: Text("Saved"),
+                              )
+                            ],
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        return Text("No Data");
+                      }))
+            ]),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 

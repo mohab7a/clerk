@@ -29,6 +29,7 @@ class _NavigationBarState extends State<NavigationBar> {
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         elevation: 0,
@@ -63,13 +64,26 @@ class _NavigationBarState extends State<NavigationBar> {
             currentIndex: widget.selectedItem,
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.gesture), label: "Error Correction"),
+                  icon: Icon(Icons.gesture),
+                  title: Text("Error Correction", textScaleFactor: 0.9)),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.translate), label: "Translation"),
+                  icon: Icon(Icons.translate),
+                  title: Text(
+                    "Translation",
+                    textScaleFactor: 0.9,
+                  )),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.gesture), label: "Summarization"),
+                  icon: Icon(Icons.gesture),
+                  title: Text(
+                    "Summarization",
+                    textScaleFactor: 0.9,
+                  )),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.text_fields), label: "Text Extraction"),
+                  icon: Icon(Icons.text_fields),
+                  title: Text(
+                    "Text Extraction",
+                    textScaleFactor: 0.9,
+                  )),
             ],
             selectedItemColor: kPrimaryColor,
             unselectedItemColor: Color(0xFF8E8E8E),
