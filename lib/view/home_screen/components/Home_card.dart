@@ -22,18 +22,18 @@ class HomeCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 25),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
-              spreadRadius: 5,
-              blurRadius: 7,
+              spreadRadius: 3,
+              blurRadius: 5,
             )
           ],
         ),
         width: double.infinity,
-        height: size.height * 0.15,
+        height: size.height * 0.16,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -46,7 +46,7 @@ class HomeCard extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w500),
               ),
-              Image.asset(vector, width: size.width * 0.30)
+              Image.asset(vector, width: size.width * 0.38)
             ],
           ),
         ),

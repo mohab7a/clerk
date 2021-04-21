@@ -11,7 +11,7 @@ class ErrorCorrectionScreen extends StatelessWidget {
         margin: EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 30),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
                 color: Colors.black12,
@@ -20,14 +20,31 @@ class ErrorCorrectionScreen extends StatelessWidget {
                 offset: Offset(1, 3)),
           ],
         ),
-        child: TextField(
-          maxLines: 1000,
-          showCursor: true,
-          cursorColor: kPrimaryColor,
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              hintText: 'Enter Text Here'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextField(
+              maxLines: 24,
+              showCursor: true,
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: 'Enter Text Here'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(icon: Icon(Icons.copy,color: kPrimaryColor,),onPressed: (){},),
+                  IconButton(icon: Icon(Icons.bookmark_border_outlined,color: kPrimaryColor,),onPressed:(){},),
+                  IconButton(icon: Icon(Icons.share_outlined,color: kPrimaryColor,),onPressed:(){},),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -18,6 +18,9 @@ Future<void> main() async {
   runApp(ChangeNotifierProvider(
     create: (context) => FireStoreProvider(),
     builder: (context, child) => MaterialApp(
+      theme: ThemeData(
+
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Clerk',
       initialRoute: loggedIn == true ? HomeScreen.id : SignInScreen.id,

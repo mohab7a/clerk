@@ -50,6 +50,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 80,
+                    backgroundColor: Colors.blueGrey,
+                    child: Icon(Icons.person,size: 120,color: Colors.black45,)
                   ),
                   Positioned(
                     right: 10,
