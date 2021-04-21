@@ -8,7 +8,7 @@ class ErrorCorrectionScreen extends StatelessWidget {
       color: kBackgroundColor,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        margin: EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 30),
+        margin: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 30),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
