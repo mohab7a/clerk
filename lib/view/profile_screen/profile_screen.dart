@@ -63,12 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             CircleAvatar(
                                 radius: 80,
-                                backgroundColor: Colors.blueGrey,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 120,
-                                  color: Colors.black45,
-                                )),
+                                backgroundColor: kPrimaryColor,
+                                child: Icon(Icons.person,size: 120,color: Colors.white,)
+                            ),
                             Positioned(
                               right: 10,
                               bottom: 0,
@@ -90,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               data: provider.data,
                               field: "name",
                               leadingIcon:
-                                  "assets/images/Icon awesome-user-alt.png",
+                              "assets/images/Icon awesome-user-alt.png",
                               titleName: "Name",
                               trailingIcon:
                                   "assets/images/Icon material-edit.png",
