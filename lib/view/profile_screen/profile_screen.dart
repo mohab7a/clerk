@@ -1,6 +1,8 @@
 import 'package:clerk/view/signin_screens/components/Custom_form_field.dart';
 import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,10 +17,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  Map<String, dynamic> data;
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    Provider.of<FireStoreProvider>(context).getData();
+    getData();
     super.didChangeDependencies();
   }
 
@@ -75,30 +80,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               UserListTile(
                                 size: size,
-                                data: Provider.of<FireStoreProvider>(context)
-                                    .data['name'],
+                                data: data,
+                                field: "name",
                                 leadingIcon:
                                     "assets/images/Icon awesome-user-alt.png",
                                 titleName: "Name",
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
-                                press: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => alert(context),
-                                  );
-                                },
+                                // press: () {
+                                //   showDialog(
+                                //     context: context,
+                                //     builder: (context) => alert(context),
+                                //   );
+                                // },
                               ),
                               SizedBox(
                                 height: 10,
                               ),
                               UserListTile(
                                 size: size,
-                                data: Provider.of<FireStoreProvider>(context)
-                                    .data["email"],
+                                data: data,
                                 leadingIcon:
                                     "assets/images/Icon material-email.png",
                                 titleName: "Email",
+                                field: "email",
                                 trailingIcon: "",
                               ),
                               SizedBox(
@@ -106,8 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               UserListTile(
                                 size: size,
-                                data: Provider.of<FireStoreProvider>(context)
-                                    .data["username"],
+                                data: data,
+                                field: "username",
                                 leadingIcon:
                                     "assets/images/Icon simple-email.png",
                                 titleName: "Username",
@@ -119,11 +124,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               UserListTile(
                                 size: size,
-                                data: Provider.of<FireStoreProvider>(context)
-                                    .data['password'],
+                                data: data,
                                 leadingIcon:
                                     "assets/images/Icon feather-lock.png",
                                 titleName: "Password",
+                                field: "password",
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
                               ),
@@ -142,13 +147,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               GestureDetector(
                                 onTap: () async {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  prefs.remove("userLogin");
                                   await Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       SignInScreen.id,
                                       (route) => false);
-                                  SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
-                                  prefs.remove("userLogin");
                                 },
                                 child: ListTile(
                                   leading: Icon(
@@ -171,29 +176,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ));
   }
+
+  Future getData() async {
+    final DocumentReference document = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(_auth.currentUser.email);
+    await document.get().then((snapshot) async {
+      data = snapshot.data();
+    });
+  }
 }
 
-AlertDialog alert(context) {
-  TextEditingController _name = TextEditingController();
-  return AlertDialog(
-    title: Text("Edit Your Name"),
-    backgroundColor: kDialogBoxColor,
-    content: CustomFormField(
-      controller: _name,
-      hintText: Provider.of<FireStoreProvider>(context).data['name'],
-    ),
-    actions: [
-      FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Provider.of<FireStoreProvider>(context).setData(name: _name);
-          },
-          child: Text("Save")),
-      FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Cancel"))
-    ],
-  );
-}
+// AlertDialog alert(context) {
+//   TextEditingController _name = TextEditingController();
+//   return AlertDialog(
+//     title: Text("Edit Your Name"),
+//     backgroundColor: kDialogBoxColor,
+//     content: CustomFormField(
+//       controller: _name,
+//       hintText: Provider.of<FireStoreProvider>(context).data['name'],
+//     ),
+//     actions: [
+//       FlatButton(
+//           onPressed: () {
+//             Provider.of<FireStoreProvider>(context).setData(name: _name.text);
+//             Navigator.pop(context);
+//           },
+//           child: Text("Save")),
+//       FlatButton(
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//           child: Text("Cancel"))
+//     ],
+//   );
+// }

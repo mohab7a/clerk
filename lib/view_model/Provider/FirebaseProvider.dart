@@ -7,11 +7,11 @@ class FireStoreProvider extends ChangeNotifier {
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   Map<String, dynamic> data;
 
-  void setData({TextEditingController name, userName, password}) {
+  void setData({String name, userName, password}) {
     _fireStore
         .collection("Users")
         .doc(_auth.currentUser.email)
-        .set({"name": name, "username": userName, "password": password});
+        .update({"name": name, "username": userName, "password": password});
     notifyListeners();
   }
 
