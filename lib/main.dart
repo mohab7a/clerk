@@ -26,7 +26,6 @@ Future<void> main() async {
         SignUpScreen.id: (context) => SignUpScreen(),
         NavigationBar.id: (context) => NavigationBar(),
         HomeScreen.id: (context) => HomeScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
         ProfileScreen.id: (context) => ProfileScreen()
       },
     ),
