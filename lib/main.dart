@@ -17,20 +17,21 @@ Future<void> main() async {
 
   runApp(ChangeNotifierProvider(
     create: (context) => FireStoreProvider(),
-    builder: (context, child) => MaterialApp(
-      theme: ThemeData(
-
+    builder: (context, child) => WillPopScope(
+      onWillPop: () async => false,
+      child: MaterialApp(
+        theme: ThemeData(),
+        debugShowCheckedModeBanner: false,
+        title: 'Clerk',
+        initialRoute: loggedIn == true ? HomeScreen.id : SignInScreen.id,
+        routes: {
+          SignInScreen.id: (context) => SignInScreen(),
+          SignUpScreen.id: (context) => SignUpScreen(),
+          NavigationBar.id: (context) => NavigationBar(),
+          HomeScreen.id: (context) => HomeScreen(),
+          ProfileScreen.id: (context) => ProfileScreen()
+        },
       ),
-      debugShowCheckedModeBanner: false,
-      title: 'Clerk',
-      initialRoute: loggedIn == true ? HomeScreen.id : SignInScreen.id,
-      routes: {
-        SignInScreen.id: (context) => SignInScreen(),
-        SignUpScreen.id: (context) => SignUpScreen(),
-        NavigationBar.id: (context) => NavigationBar(),
-        HomeScreen.id: (context) => HomeScreen(),
-        ProfileScreen.id: (context) => ProfileScreen()
-      },
     ),
   ));
 }

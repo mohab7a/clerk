@@ -36,25 +36,45 @@ class HomeScreen extends StatelessWidget {
                   size: size,
                   text: "Error Correction",
                   vector: "assets/images/Mask Group 10.png",
-                  onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(0)));},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBar(0)));
+                  },
                 ),
                 HomeCard(
-                    size: size,
-                    text: "Translation",
-                    vector: "assets/images/Mask Group 8.png",
-                    onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(1)));},
+                  size: size,
+                  text: "Translation",
+                  vector: "assets/images/Mask Group 8.png",
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBar(1)));
+                  },
                 ),
                 HomeCard(
-                    size: size,
-                    text: "Summarization",
-                    vector: "assets/images/Mask Group 1.png",
-                    onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(2)));},
+                  size: size,
+                  text: "Summarization",
+                  vector: "assets/images/Mask Group 1.png",
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBar(2)));
+                  },
                 ),
                 HomeCard(
-                    size: size,
-                    text: "Text Extraction",
-                    vector: "assets/images/Mask Group 9.png",
-                    onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar(3)));},
+                  size: size,
+                  text: "Text Extraction",
+                  vector: "assets/images/Mask Group 9.png",
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBar(3)));
+                  },
                 ),
               ],
             ),
@@ -64,5 +84,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-

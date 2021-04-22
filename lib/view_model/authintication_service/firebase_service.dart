@@ -20,6 +20,7 @@ class FireBaseService {
       "email": email,
       "username": username,
       "password": password
-    }).then((value) => Navigator.pushNamedAndRemoveUntil(context, HomeScreen.id, (route) => false));
+    }).then((value) => Navigator.pushNamedAndRemoveUntil(
+        context, HomeScreen.id, (route) => false));
   }
 }

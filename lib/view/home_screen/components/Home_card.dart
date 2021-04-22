@@ -46,7 +46,7 @@ class HomeCard extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w500),
               ),
-              Image.asset(vector, width: size.width * 0.38)
+              Image.asset(vector, width: size.width * 0.30)
             ],
           ),
         ),

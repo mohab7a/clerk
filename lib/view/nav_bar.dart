@@ -17,11 +17,6 @@ class NavigationBar extends StatefulWidget {
 
 class _NavigationBarState extends State<NavigationBar> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
       ErrorCorrectionScreen(),
@@ -36,7 +31,9 @@ class _NavigationBarState extends State<NavigationBar> {
         backgroundColor: kBackgroundColor,
         elevation: 0,
         title: GestureDetector(
-          onTap: (){Navigator.pushReplacementNamed(context, HomeScreen.id);},
+          onTap: () {
+            Navigator.pushReplacementNamed(context, HomeScreen.id);
+          },
           child: Image.asset(
             "assets/images/clerk logo.png",
             width: MediaQuery.of(context).size.width * .25,
@@ -72,11 +69,11 @@ class _NavigationBarState extends State<NavigationBar> {
                   icon: Icon(Icons.fact_check_outlined),
                   title: Text("Error Correction", textScaleFactor: 0.8)),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.translate_outlined),
-                  title: Text(
-                    "Translation",
-                    textScaleFactor: 0.8,
-                  ),
+                icon: Icon(Icons.translate_outlined),
+                title: Text(
+                  "Translation",
+                  textScaleFactor: 0.8,
+                ),
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.article_outlined),
