@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: "^0.16.0+1"
   shared_preferences: ^2.0.5
   provider: ^5.0.0
+  image_picker:
 
 dev_dependencies:
   flutter_test:
