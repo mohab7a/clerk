@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
 import 'package:flutter/material.dart';
@@ -65,31 +63,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Stack(
                           children: [
-                            Container(
-                                height: 150,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: (_image == null)
-                                            ? AssetImage(
-                                                "assets/images/clerk header.png")
-                                            : FileImage(_image)))),
-                            InkWell(
-                              onTap: getImage,
-                              child: Positioned(
-                                right: 10,
-                                bottom: 0,
-                                child: Container(
-                                    height: size.height * 0.08,
-                                    width: size.width * 0.09,
-                                    decoration: BoxDecoration(
-                                        color: kPrimaryColor,
-                                        shape: BoxShape.circle),
-                                    child: Image.asset(
-                                        "assets/images/Group 17.png")),
-                              ),
+                            CircleAvatar(
+                                radius: 80,
+                                backgroundColor: kPrimaryColor,
+                                child: Icon(Icons.person,size: 120,color: Colors.white,)
+                            ),
+                            Positioned(
+                              right: 10,
+                              bottom: 0,
+                              child: Container(
+                                  height: size.height * 0.08,
+                                  width: size.width * 0.09,
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      shape: BoxShape.circle),
+                                  child: Image.asset(
+                                      "assets/images/Group 17.png")),
                             ),
                           ],
                         ),
@@ -100,10 +89,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               data: provider.data,
                               field: "name",
                               leadingIcon:
-                              "assets/images/Icon awesome-user-alt.png",
+                                  "assets/images/Icon awesome-user-alt.png",
                               titleName: "Name",
                               trailingIcon:
-                              "assets/images/Icon material-edit.png",
+                                  "assets/images/Icon material-edit.png",
                               press: () {
                                 showDialog(
                                   context: context,
@@ -122,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               size: size,
                               data: provider.data,
                               leadingIcon:
-                              "assets/images/Icon material-email.png",
+                                  "assets/images/Icon material-email.png",
                               titleName: "Email",
                               field: "email",
                               trailingIcon: "",
@@ -135,10 +124,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               data: provider.data,
                               field: "username",
                               leadingIcon:
-                              "assets/images/Icon simple-email.png",
+                                  "assets/images/Icon simple-email.png",
                               titleName: "Username",
                               trailingIcon:
-                              "assets/images/Icon material-edit.png",
+                                  "assets/images/Icon material-edit.png",
                               press: () {
                                 showDialog(
                                   context: context,
@@ -157,11 +146,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 size: size,
                                 data: provider.data,
                                 leadingIcon:
-                                "assets/images/Icon feather-lock.png",
+                                    "assets/images/Icon feather-lock.png",
                                 titleName: "Password",
                                 field: ("password"),
                                 trailingIcon:
-                                "assets/images/Icon material-edit.png",
+                                    "assets/images/Icon material-edit.png",
                                 press: () {
                                   showDialog(
                                     context: context,
@@ -188,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             GestureDetector(
                               onTap: () async {
                                 SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
+                                    await SharedPreferences.getInstance();
                                 prefs.remove("userLogin");
                                 await Navigator.pushNamedAndRemoveUntil(
                                     context, SignInScreen.id, (route) => false);
