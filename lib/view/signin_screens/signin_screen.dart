@@ -1,6 +1,7 @@
 import 'package:clerk/constants.dart';
 import 'package:clerk/view/signup_screen/signup_screen.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/default_button.dart';
@@ -14,6 +15,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _email = TextEditingController();
@@ -69,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       _authService.signInWithEmailAndPassword(
                           _email.text, _password.text, context);
                       SharedPreferences _prefs =
-                          await SharedPreferences.getInstance();
+                      await SharedPreferences.getInstance();
                       _prefs.setBool("userLogin", true);
                     }
                   },
@@ -125,12 +127,21 @@ class _SignInScreenState extends State<SignInScreen> {
                     )
                   ],
                 ),
-                Spacer()
+                Spacer(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  SnackBar buildSnackBar(BuildContext context) {
+    return SnackBar(
+      content: Text("please Sign With Valid Email"),
+      backgroundColor: kPrimaryColor,
+      duration: Duration(seconds: 5),
+      elevation: 2,
     );
   }
 }

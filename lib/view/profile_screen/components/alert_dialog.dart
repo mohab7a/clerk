@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
-AlertDialog alert(
+AlertDialog editAlertDialog(
     {context, String title, key, value, TextEditingController controller}) {
   final provider = Provider.of<FireStoreProvider>(context);
   return AlertDialog(
@@ -16,15 +16,15 @@ AlertDialog alert(
     actions: [
       TextButton(
           onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Cancel")),
+      TextButton(
+          onPressed: () {
             provider.updateData(key: key, value: controller.text);
             Navigator.pop(context);
           },
-          child: Text("Save")),
-      TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Cancel"))
+          child: Text("Save"))
     ],
   );
 }

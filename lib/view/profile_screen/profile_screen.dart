@@ -1,5 +1,6 @@
-import 'package:clerk/view/signin_screens/signin_screen.dart';
+import 'dart:io';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
+import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   File _image; //here we gonna store our image.
+  FireBaseService _service = FireBaseService();
   TextEditingController _name = TextEditingController();
   TextEditingController _userName = TextEditingController();
   TextEditingController _password = TextEditingController();
@@ -64,21 +66,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Stack(
                           children: [
                             CircleAvatar(
-                                radius: 80,
-                                backgroundColor: kPrimaryColor,
-                                child: Icon(Icons.person,size: 120,color: Colors.white,)
+                              radius: 80,
+                              backgroundColor: kPrimaryColor,
+                              backgroundImage: _image == null
+                                  ? AssetImage(
+                                      "assets/images/734189-middle.png")
+                                  : FileImage(_image),
                             ),
                             Positioned(
                               right: 10,
                               bottom: 0,
-                              child: Container(
-                                  height: size.height * 0.08,
-                                  width: size.width * 0.09,
-                                  decoration: BoxDecoration(
-                                      color: kPrimaryColor,
-                                      shape: BoxShape.circle),
-                                  child: Image.asset(
-                                      "assets/images/Group 17.png")),
+                              child: GestureDetector(
+                                onTap: () => getImage(),
+                                child: Container(
+                                    height: size.height * 0.08,
+                                    width: size.width * 0.09,
+                                    decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        shape: BoxShape.circle),
+                                    child: Image.asset(
+                                        "assets/images/Group 17.png")),
+                              ),
                             ),
                           ],
                         ),
@@ -96,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               press: () {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => alert(
+                                  builder: (context) => editAlertDialog(
                                       context: context,
                                       key: "name",
                                       title: "Enter Your Name",
@@ -131,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               press: () {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => alert(
+                                  builder: (context) => editAlertDialog(
                                       context: context,
                                       key: "username",
                                       title: "Enter Your Username",
@@ -148,13 +156,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 leadingIcon:
                                     "assets/images/Icon feather-lock.png",
                                 titleName: "Password",
-                                field: ("password"),
+                                field: "password",
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
                                 press: () {
                                   showDialog(
                                     context: context,
-                                    builder: (context) => alert(
+                                    builder: (context) => editAlertDialog(
                                         context: context,
                                         key: "password",
                                         title: "Enter Your New Password",
@@ -179,8 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 SharedPreferences prefs =
                                     await SharedPreferences.getInstance();
                                 prefs.remove("userLogin");
-                                await Navigator.pushNamedAndRemoveUntil(
-                                    context, SignInScreen.id, (route) => false);
+                                _service.signOut(context);
                               },
                               child: ListTile(
                                 leading: Icon(
@@ -210,10 +217,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future getImage() async {
     final pickedFile = await picker.getImage(
-        source: ImageSource.camera,
-        preferredCameraDevice: CameraDevice.rear,
-        maxHeight: 150,
-        maxWidth: 150);
+      source: ImageSource.gallery,
+    );
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);

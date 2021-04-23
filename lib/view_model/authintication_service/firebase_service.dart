@@ -1,4 +1,5 @@
 import 'package:clerk/view/home_screen/home_screen.dart';
+import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,5 +23,10 @@ class FireBaseService {
       "password": password
     }).then((value) => Navigator.pushNamedAndRemoveUntil(
         context, HomeScreen.id, (route) => false));
+  }
+
+  void signOut(context) async {
+    await _auth.signOut().then((value) => Navigator.pushNamedAndRemoveUntil(
+        context, SignInScreen.id, (route) => false));
   }
 }
