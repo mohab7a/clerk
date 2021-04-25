@@ -12,6 +12,7 @@ AlertDialog editAlertDialog(
     backgroundColor: kDialogBoxColor,
     content: CustomFormField(
       controller: controller,
+      secure: false,
     ),
     actions: [
       TextButton(
