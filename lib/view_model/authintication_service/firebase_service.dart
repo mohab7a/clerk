@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:clerk/view/home_screen/home_screen.dart';
 import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FireBaseService {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+
   void signInWithEmailAndPassword(var email, password, context) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
     Navigator.pushNamedAndRemoveUntil(context, HomeScreen.id, (route) => false);
@@ -20,7 +26,8 @@ class FireBaseService {
       "name": name,
       "email": email,
       "username": username,
-      "password": password
+      "password": password,
+      "userImage": ""
     }).then((value) => Navigator.pushNamedAndRemoveUntil(
         context, HomeScreen.id, (route) => false));
   }
@@ -28,5 +35,19 @@ class FireBaseService {
   void signOut(context) async {
     await _auth.signOut().then((value) => Navigator.pushNamedAndRemoveUntil(
         context, SignInScreen.id, (route) => false));
+  }
+
+  Future firebaseStorage({image, context}) async {
+    TaskSnapshot snapshot = await _firebaseStorage
+        .ref()
+        .child(_auth.currentUser.email)
+        .putFile(image);
+    if (snapshot.state == TaskState.success) {
+      final String downloadUrl = await snapshot.ref.getDownloadURL();
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(_auth.currentUser.email)
+          .update({"userImage": downloadUrl});
+    }
   }
 }

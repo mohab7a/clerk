@@ -25,7 +25,7 @@ class UserListTile extends StatelessWidget {
         width: size.width * 0.06,
       ),
       title: Text(titleName),
-      subtitle: Text(data[field]),
+      subtitle: field == "password" ? Text("********") : Text(data[field]),
       trailing: GestureDetector(
         onTap: press,
         child: Image.asset(trailingIcon, width: size.width * 0.06),

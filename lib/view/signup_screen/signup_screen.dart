@@ -1,6 +1,7 @@
 import 'package:clerk/constants.dart';
 import 'package:clerk/view/signin_screens/components/Custom_form_field.dart';
 import 'package:clerk/view/signin_screens/components/default_button.dart';
+import 'package:clerk/view/signin_screens/components/snack_bar.dart';
 import 'package:clerk/view/signin_screens/signin_screen.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                   CustomFormField(
+                    secure: false,
                     controller: _name,
                     hintText: "Name",
                     validator: (value) {
@@ -69,6 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   CustomFormField(
+                    secure: false,
                     hintText: "Email-address",
                     controller: _email,
                     validator: (value) {
@@ -77,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   CustomFormField(
+                      secure: false,
                       hintText: "Username",
                       controller: _userName,
                       validator: (value) {
@@ -84,6 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   CustomFormField(
+                    secure: true,
                     hintText: "Password",
                     controller: _password,
                     validator: (value) {
@@ -93,6 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   CustomFormField(
+                    secure: true,
                     hintText: "Confirm password",
                     validator: (value) {
                       if (value.isEmpty || value != _password.text)
@@ -101,27 +107,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   Spacer(),
                   DefaultButton(
-                    color: kPrimaryColor,
-                    child: Center(
-                      child: Text(
-                        "SIGN UP",
-                        style: TextStyle(color: Colors.white),
+                      color: kPrimaryColor,
+                      child: Center(
+                        child: Text(
+                          "SIGN UP",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    ),
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        SharedPreferences _prefs =
-                            await SharedPreferences.getInstance();
-                        _prefs.setBool("userLogin", true);
-                        _authService.createEmailAndPassword(
-                            _email.text,
-                            _password.text,
-                            _name.text,
-                            _userName.text,
-                            context);
-                      }
-                    },
-                  ),
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          SharedPreferences _prefs =
+                              await SharedPreferences.getInstance();
+                          _prefs.setBool("userLogin", true);
+                          _authService.createEmailAndPassword(
+                              _email.text,
+                              _password.text,
+                              _name.text,
+                              _userName.text,
+                              context);
+                        }
+                      }),
                   Spacer(),
                   DefaultButton(
                     color: Colors.white,

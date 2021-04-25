@@ -15,7 +15,7 @@ class DefaultButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.08,
+        height: MediaQuery.of(context).size.height * 0.06,
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(10)),

@@ -3,9 +3,9 @@ import 'package:clerk/view/signup_screen/signup_screen.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'components/default_button.dart';
 import 'components/Custom_form_field.dart';
+import 'components/snack_bar.dart';
 
 class SignInScreen extends StatefulWidget {
   static String id = "Sign In Screen";
@@ -15,9 +15,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-
   TextEditingController _email = TextEditingController();
 
   TextEditingController _password = TextEditingController();
@@ -37,9 +35,13 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: [
                 Spacer(),
-                Image.asset("assets/images/clerk logo.png"),
+                Image.asset(
+                  "assets/images/clerk logo.png",
+                  width: MediaQuery.of(context).size.width * 0.6,
+                ),
                 Spacer(),
                 CustomFormField(
+                  secure: false,
                   controller: _email,
                   hintText: "E-mail or username",
                   validator: (value) {
@@ -48,6 +50,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 CustomFormField(
+                  secure: true,
                   controller: _password,
                   hintText: "Password",
                   validator: (value) {
@@ -70,10 +73,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (_formKey.currentState.validate()) {
                       _authService.signInWithEmailAndPassword(
                           _email.text, _password.text, context);
-                      SharedPreferences _prefs =
-                      await SharedPreferences.getInstance();
-                      _prefs.setBool("userLogin", true);
+                      // SharedPreferences _prefs =
+                      //     await SharedPreferences.getInstance();
+                      // _prefs.setBool("userLogin", true);
                     }
+                    signInSnackBar(context, "Please Sign in With Valid Email");
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -133,15 +137,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  SnackBar buildSnackBar(BuildContext context) {
-    return SnackBar(
-      content: Text("please Sign With Valid Email"),
-      backgroundColor: kPrimaryColor,
-      duration: Duration(seconds: 5),
-      elevation: 2,
     );
   }
 }
