@@ -9,18 +9,20 @@ class HomeCard extends StatelessWidget {
     this.vector,
     this.text,
     this.onPressed,
+    this.margin,
   }) : super(key: key);
 
   final Size size;
   final String vector, text;
   final Function onPressed;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        margin: EdgeInsets.only(bottom: 25),
+        margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,

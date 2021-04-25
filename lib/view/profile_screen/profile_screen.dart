@@ -66,18 +66,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Stack(
                           children: [
                             CircleAvatar(
-                              radius: 80,
-                              backgroundColor: kPrimaryColor,
-                              backgroundImage: _image == null
-                                  ? AssetImage(
-                                      "assets/images/734189-middle.png")
-                                  : FileImage(_image),
-                            ),
+                                radius: 80,
+                                backgroundColor: kPrimaryColor,
+                                backgroundImage: provider.data['userImage'] ==
+                                        ""
+                                    ? AssetImage(
+                                        "assets/images/734189-middle.png")
+                                    : NetworkImage(provider.data["userImage"])),
                             Positioned(
                               right: 10,
                               bottom: 0,
                               child: GestureDetector(
-                                onTap: () => getImage(),
+                                onTap: () => getImage().then((value) =>
+                                    _service.firebaseStorage(
+                                        image: _image, context: context)),
                                 child: Container(
                                     height: size.height * 0.08,
                                     width: size.width * 0.09,
@@ -184,9 +186,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.remove("userLogin");
+                                // SharedPreferences prefs =
+                                //     await SharedPreferences.getInstance();
+                                // prefs
+                                //     .remove("userLogin")
                                 _service.signOut(context);
                               },
                               child: ListTile(
@@ -205,7 +208,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                    child: CircularProgressIndicator(
+                  backgroundColor: kPrimaryColor,
+                ));
               }
               return Text("No Data");
             }),
