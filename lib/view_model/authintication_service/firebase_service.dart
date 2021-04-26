@@ -36,18 +36,4 @@ class FireBaseService {
     await _auth.signOut().then((value) => Navigator.pushNamedAndRemoveUntil(
         context, SignInScreen.id, (route) => false));
   }
-
-  Future firebaseStorage({image, context}) async {
-    TaskSnapshot snapshot = await _firebaseStorage
-        .ref()
-        .child(_auth.currentUser.email)
-        .putFile(image);
-    if (snapshot.state == TaskState.success) {
-      final String downloadUrl = await snapshot.ref.getDownloadURL();
-      await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(_auth.currentUser.email)
-          .update({"userImage": downloadUrl});
-    }
-  }
 }

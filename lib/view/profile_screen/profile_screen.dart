@@ -4,7 +4,6 @@ import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
 import 'components/alert_dialog.dart';
 import 'components/profile_list_tile.dart';
@@ -78,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               bottom: 0,
                               child: GestureDetector(
                                 onTap: () => getImage().then((value) =>
-                                    _service.firebaseStorage(
+                                    provider.firebaseStorage(
                                         image: _image, context: context)),
                                 child: Container(
                                     height: size.height * 0.08,
