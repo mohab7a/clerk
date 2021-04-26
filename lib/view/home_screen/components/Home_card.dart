@@ -23,17 +23,7 @@ class HomeCard extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         margin: margin,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              spreadRadius: 3,
-              blurRadius: 5,
-            )
-          ],
-        ),
+        decoration: kCustomBoxDecoration,
         width: double.infinity,
         height: size.height * 0.16,
         child: Padding(

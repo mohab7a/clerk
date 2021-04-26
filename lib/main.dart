@@ -1,14 +1,14 @@
 import 'package:clerk/view/home_screen/home_screen.dart';
 import 'package:clerk/view/profile_screen/profile_screen.dart';
-import 'package:clerk/view/signin_screens/signin_screen.dart';
-import 'package:clerk/view/signup_screen/signup_screen.dart';
+import 'package:clerk/view/auth_screens/signin_screens/signin_screen.dart';
+import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'view/nav_bar.dart';
+import 'view/features_screens/nav_bar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

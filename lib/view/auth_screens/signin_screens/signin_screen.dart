@@ -1,7 +1,6 @@
 import 'package:clerk/constants.dart';
-import 'package:clerk/view/signup_screen/signup_screen.dart';
+import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'components/default_button.dart';
 import 'components/Custom_form_field.dart';

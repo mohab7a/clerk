@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:clerk/view/home_screen/home_screen.dart';
-import 'package:clerk/view/signin_screens/signin_screen.dart';
+import 'package:clerk/view/auth_screens/signin_screens/signin_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';

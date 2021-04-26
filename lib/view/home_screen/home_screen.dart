@@ -1,7 +1,7 @@
 import 'package:clerk/constants.dart';
 import 'package:clerk/view/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
-import '../nav_bar.dart';
+import '../features_screens/nav_bar.dart';
 import 'components/Home_card.dart';
 
 class HomeScreen extends StatelessWidget {

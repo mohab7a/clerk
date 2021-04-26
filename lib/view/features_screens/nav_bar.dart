@@ -1,10 +1,10 @@
-import 'package:clerk/view/error_correction_screen/error_correction_screen.dart';
+import 'package:clerk/view/features_screens/error_correction_screen/error_correction_screen.dart';
 import 'package:clerk/view/home_screen/home_screen.dart';
-import 'package:clerk/view/summarization_screen/summarization-screen.dart';
-import 'package:clerk/view/text_extraction_screen/text_extraction_screen.dart';
-import 'package:clerk/view/translation_screen/translation_screen.dart';
+import 'package:clerk/view/features_screens/summarization_screen/summarization-screen.dart';
+import 'package:clerk/view/features_screens/text_extraction_screen/text_extraction_screen.dart';
+import 'package:clerk/view/features_screens/translation_screen/translation_screen.dart';
 import 'package:flutter/material.dart';
-import '../constants.dart';
+import '../../constants.dart';
 
 // ignore: must_be_immutable
 class NavigationBar extends StatefulWidget {
@@ -17,6 +17,10 @@ class NavigationBar extends StatefulWidget {
 
 class _NavigationBarState extends State<NavigationBar> {
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
       ErrorCorrectionScreen(),
@@ -26,6 +30,7 @@ class _NavigationBarState extends State<NavigationBar> {
     ];
 
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
@@ -42,15 +47,16 @@ class _NavigationBarState extends State<NavigationBar> {
         automaticallyImplyLeading: true,
         centerTitle: true,
       ),
-      body: //SizedBox.expand(child: child),
-          screens[widget.selectedItem],
+      body: IndexedStack(
+        children: screens,
+        index: widget.selectedItem,
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
-              blurRadius: 7,
-              spreadRadius: 5,
+              blurRadius: 5,
             ),
           ],
         ),
