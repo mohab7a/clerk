@@ -1,8 +1,6 @@
 import 'package:clerk/view/features_screens/components/text_recognition_widget.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
-import 'package:image_picker/image_picker.dart';
 
 class TextExtractionScreen extends StatefulWidget {
   @override
@@ -10,7 +8,6 @@ class TextExtractionScreen extends StatefulWidget {
 }
 
 class _TextExtractionScreenState extends State<TextExtractionScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
