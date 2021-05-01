@@ -73,6 +73,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   void copyToClipboard() {
     if (text.trim() != '') {
       FlutterClipboard.copy(text);
+      
     }
   }
 
