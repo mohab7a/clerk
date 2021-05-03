@@ -22,23 +22,27 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   File image;
 
   @override
-  Widget build(BuildContext context) => Expanded(
-    child: Column(
-      children: [
-        Expanded(child: buildImage()),
-        const SizedBox(height: 16),
-        ControlsWidget(
-          onClickedPickImage: pickImage,
-          onClickedScanText: scanText,
-          onClickedClear: clear,
+  Widget build(BuildContext context) => Column(
+    children: [
+      Expanded(
+        child: Column(
+          children: [
+            Expanded(child: buildImage()),
+            const SizedBox(height: 16),
+            ControlsWidget(
+              onClickedPickImage: pickImage,
+              onClickedScanText: scanText,
+              onClickedClear: clear,
+            ),
+            const SizedBox(height: 16),
+            TextAreaWidget(
+              text: text,
+              onClickedCopy: copyToClipboard,
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-        TextAreaWidget(
-          text: text,
-          onClickedCopy: copyToClipboard,
-        ),
-      ],
-    ),
+      ),
+    ],
   );
 
   Widget buildImage() => Container(

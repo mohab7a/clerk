@@ -23,13 +23,13 @@ import 'package:http/http.dart' as http;
 // }
 
 Future<dynamic> translate({String text, String toLanguage}) async {
+  final String key = "AIzaSyAxHcXzqV6YWKJZ9i5VKgmm1IPlJjy5hfc";
   final response = await http.post(
     Uri.parse(
-        "https://translation.googleapis.com/language/translate/v2?key=AIzaSyAxHcXzqV6YWKJZ9i5VKgmm1IPlJjy5hfc&q=$text&target=$toLanguage"),
+        "https://translation.googleapis.com/language/translate/v2?key=$key&q=$text&target=$toLanguage"),
   );
   if (response.statusCode == 200) {
     Map<String, dynamic> data = json.decode(response.body);
-    print(data["data"]["translations"][0]["translatedText"]);
     return data;
   } else {
     throw (Exception);

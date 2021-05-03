@@ -12,11 +12,13 @@ class _TranslationScreenState extends State<TranslationScreen> {
   TextEditingController inputField = TextEditingController();
   TextEditingController outputField = TextEditingController();
 
-  // @override
-  // void didChangeDependencies() {
-  //
-  //   super.didChangeDependencies();
-  // }
+
+  @override
+  void dispose() {
+    super.dispose();
+    inputField.dispose();
+    outputField.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return NotificationListener<OverscrollIndicatorNotification>(
@@ -48,10 +50,8 @@ class _TranslationScreenState extends State<TranslationScreen> {
                           controller: inputField,
                           onChanged: (value) {
                             setState(() {
-                              translate(
-                                  text: inputField.text, toLanguage: 'ar');
-                              outputField.text = snapshot.data["data"]
-                                  ["translations"][0]["translatedText"];
+                              translate(text: inputField.text, toLanguage: 'ar');
+                              outputField.text = snapshot.data["data"]["translations"][0]["translatedText"];
                             });
                           },
                           maxLines: null,
