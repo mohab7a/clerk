@@ -74,9 +74,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 radius: 80,
                                 backgroundColor: kPrimaryColor,
                                 backgroundImage: provider.data['userImage'] ==
-                                    ""
+                                        ""
                                     ? AssetImage(
-                                    "assets/images/734189-middle.png")
+                                        "assets/images/734189-middle.png")
                                     : NetworkImage(provider.data["userImage"])),
                             Positioned(
                               right: 10,
@@ -104,10 +104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               data: provider.data,
                               field: "name",
                               leadingIcon:
-                              "assets/images/Icon awesome-user-alt.png",
+                                  "assets/images/Icon awesome-user-alt.png",
                               titleName: "Name",
                               trailingIcon:
-                              "assets/images/Icon material-edit.png",
+                                  "assets/images/Icon material-edit.png",
                               press: () {
                                 showDialog(
                                   context: context,
@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               size: size,
                               data: provider.data,
                               leadingIcon:
-                              "assets/images/Icon material-email.png",
+                                  "assets/images/Icon material-email.png",
                               titleName: "Email",
                               field: "email",
                               trailingIcon: "",
@@ -139,10 +139,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               data: provider.data,
                               field: "username",
                               leadingIcon:
-                              "assets/images/Icon simple-email.png",
+                                  "assets/images/Icon simple-email.png",
                               titleName: "Username",
                               trailingIcon:
-                              "assets/images/Icon material-edit.png",
+                                  "assets/images/Icon material-edit.png",
                               press: () {
                                 showDialog(
                                   context: context,
@@ -161,11 +161,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 size: size,
                                 data: provider.data,
                                 leadingIcon:
-                                "assets/images/Icon feather-lock.png",
+                                    "assets/images/Icon feather-lock.png",
                                 titleName: "Password",
                                 field: "password",
                                 trailingIcon:
-                                "assets/images/Icon material-edit.png",
+                                    "assets/images/Icon material-edit.png",
                                 press: () {
                                   showDialog(
                                       context: context,
@@ -283,8 +283,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                     child: CircularProgressIndicator(
-                      backgroundColor: kPrimaryColor,
-                    ));
+                  backgroundColor: kPrimaryColor,
+                ));
               }
               return Text("No Data");
             }),
