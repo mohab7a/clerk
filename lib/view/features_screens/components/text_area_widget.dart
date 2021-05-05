@@ -1,7 +1,9 @@
 import 'package:clerk/constants.dart';
 import 'package:flutter/material.dart';
 
-class TextAreaWidget extends StatelessWidget {
+import 'options_row.dart';
+
+class TextAreaWidget extends StatefulWidget {
   final String text;
   final VoidCallback onClickedCopy;
 
@@ -12,27 +14,37 @@ class TextAreaWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Row(
-    children: [
-      Expanded(
-        child: Container(
-          margin:  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
-          padding: EdgeInsets.all(8),
-          height: 400,
-          decoration: kCustomBoxDecoration,
-          alignment: Alignment.center,
-          child: SelectableText(
-            text.isEmpty ? 'Scan an Image to get text' : text,
-            textAlign: TextAlign.center,
-          ),
+  _TextAreaWidgetState createState() => _TextAreaWidgetState();
+}
+
+class _TextAreaWidgetState extends State<TextAreaWidget> {
+  TextEditingController outputField = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        margin: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          bottom: 20,
         ),
-      ),
-      // const SizedBox(width: 8),
-      // IconButton(
-      //   icon: Icon(Icons.copy, color: Colors.black),
-      //   color: Colors.grey[200],
-      //   onPressed: onClickedCopy,
-      // ),
-    ],
-  );
+        height: MediaQuery.of(context).size.height * 0.5,
+        decoration: kCustomBoxDecoration,
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: SelectableText(
+                widget.text.isEmpty ? '' : widget.text,
+                textAlign: TextAlign.start,
+                // textAlign: TextAlign.center,
+              ),
+            ),
+            OptionsRow(
+              text: widget.text,
+            ),
+          ],
+        ),
+      );
 }

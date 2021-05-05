@@ -7,12 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../firebase_ml_text_recognition.dart';
 import 'controls_widget.dart';
 
-
 class TextRecognitionWidget extends StatefulWidget {
-  const TextRecognitionWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   _TextRecognitionWidgetState createState() => _TextRecognitionWidgetState();
 }
@@ -23,33 +18,32 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
 
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      Expanded(
-        child: Column(
-          children: [
-            Expanded(child: buildImage()),
-            const SizedBox(height: 16),
-            ControlsWidget(
-              onClickedPickImage: pickImage,
-              onClickedScanText: scanText,
-              onClickedClear: clear,
-            ),
-            const SizedBox(height: 16),
-            TextAreaWidget(
-              text: text,
-              onClickedCopy: copyToClipboard,
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
+        children: [
+          buildImage(),
+          ControlsWidget(
+            onClickedPickImage: pickImage,
+            onClickedScanText: scanText,
+            onClickedClear: clear,
+          ),
+          SizedBox(height: 16),
+          TextAreaWidget(
+            text: text,
+            // onClickedCopy: copyToClipboard,
+          ),
+        ],
+      );
 
-  Widget buildImage() => Container(
-    child: image != null
-        ? Image.file(image)
-        : Icon(Icons.photo, size: 80, color: kPrimaryColor),
-  );
+  Widget buildImage() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Container(
+          width: MediaQuery.of(context).size.width - 40,
+          child: image != null
+              ? Image.file(
+                  image,
+                )
+              : Icon(Icons.photo, size: 80, color: kPrimaryColor),
+        ),
+      );
 
   Future pickImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.gallery);
@@ -60,12 +54,12 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
     showDialog(
       builder: (context) => Center(
         child: CircularProgressIndicator(),
-      ), context: context,
+      ),
+      context: context,
     );
 
     final text = await FirebaseMLApi.recogniseText(image);
     setText(text);
-
     Navigator.of(context).pop();
   }
 
@@ -77,7 +71,6 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   void copyToClipboard() {
     if (text.trim() != '') {
       FlutterClipboard.copy(text);
-      
     }
   }
 

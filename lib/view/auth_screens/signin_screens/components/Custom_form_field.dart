@@ -17,6 +17,7 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enableSuggestions: true,
       cursorColor: kPrimaryColor,
       obscureText: secure,
       controller: controller,

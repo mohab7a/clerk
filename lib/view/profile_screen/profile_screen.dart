@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:clerk/view/auth_screens/signin_screens/components/Custom_form_field.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -293,7 +292,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   final picker = ImagePicker();
-
   Future getImage() async {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,

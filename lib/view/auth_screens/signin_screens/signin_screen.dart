@@ -72,11 +72,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (_formKey.currentState.validate()) {
                       _authService.signInWithEmailAndPassword(
                           _email.text, _password.text, context);
-                      // SharedPreferences _prefs =
-                      //     await SharedPreferences.getInstance();
-                      // _prefs.setBool("userLogin", true);
-                    }
-                    signInSnackBar(context, "Please Sign in With Valid Email");
+                    } else
+                      signInSnackBar(
+                          context, "Please Sign in With Valid Email");
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -85,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: kSecondaryColor,
-                      fontSize: 17),
+                      fontSize: 15),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 DefaultButton(

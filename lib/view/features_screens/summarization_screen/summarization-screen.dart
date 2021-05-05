@@ -23,6 +23,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
     inputField.dispose();
     outputField.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return NotificationListener<OverscrollIndicatorNotification>(
@@ -31,7 +32,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
         return;
       },
       child: FutureBuilder(
-          future: summarize(text: inputField.text,sentences: 5),
+          future: summarize(text: inputField.text, sentences: 5),
           builder: (context, snapshot) {
             return SingleChildScrollView(
               child: Column(
@@ -54,7 +55,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                           controller: inputField,
                           onChanged: (value) {
                             setState(() {
-                              summarize(text: inputField.text,sentences: 5);
+                              summarize(text: inputField.text, sentences: 5);
                               outputField.text = snapshot.data["summary"];
                             });
                           },
@@ -93,7 +94,9 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                               focusedBorder: InputBorder.none,
                               hintText: 'Your Output '),
                         ),
-                        OptionsRow(),
+                        OptionsRow(
+                          text: outputField.text,
+                        ),
                       ],
                     ),
                   ),
