@@ -1,6 +1,8 @@
 import 'package:clerk/view/features_screens/components/options_row.dart';
+import 'package:clerk/view_model/Provider/extracted_text.dart';
 import 'package:clerk/view_model/translation_api.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class TranslationScreen extends StatefulWidget {
@@ -21,6 +23,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<TranslatedText>(context);
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (overScroll) {
         overScroll.disallowGlow();
@@ -49,12 +52,10 @@ class _TranslationScreenState extends State<TranslationScreen> {
                         TextFormField(
                           controller: inputField,
                           onChanged: (value) {
-                            setState(() {
-                              translate(
-                                  text: inputField.text, toLanguage: 'ar');
-                              outputField.text = snapshot.data["data"]
-                                  ["translations"][0]["translatedText"];
-                            });
+                            translate(text: inputField.text, toLanguage: "ar");
+                            provider.setText(snapshot.data["data"]
+                                ["translations"][0]["translatedText"]);
+                            outputField.text = provider.translatedText;
                           },
                           maxLines: null,
                           minLines: 11,
@@ -79,9 +80,6 @@ class _TranslationScreenState extends State<TranslationScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.upload_file),
-                        ),
                         TextFormField(
                           controller: outputField,
                           readOnly: true,

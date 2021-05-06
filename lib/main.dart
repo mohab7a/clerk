@@ -11,17 +11,17 @@ import 'package:provider/provider.dart';
 import 'view/features_screens/nav_bar.dart';
 
 Future<void> main(context) async {
+  Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   //SharedPreferences prefs = await SharedPreferences.getInstance();
   //var loggedIn = prefs.getBool("userLogin") ?? false;
   FirebaseAuth _auth = FirebaseAuth.instance;
-
   runApp(
     MultiProvider(
       providers: [
-        Provider(create: (context) => FireStoreProvider()),
-        Provider(create: (_) => ExtractedText()),
+        Provider<FireStoreProvider>(create: (_) => FireStoreProvider()),
+        Provider(create: (context) => TranslatedText()),
       ],
       child: WillPopScope(
         onWillPop: () async => false,
@@ -30,7 +30,7 @@ Future<void> main(context) async {
           debugShowCheckedModeBanner: false,
           title: 'Clerk',
           initialRoute:
-              _auth.currentUser == null ? SignInScreen.id : HomeScreen.id,
+          _auth.currentUser == null ? SignInScreen.id : HomeScreen.id,
           routes: {
             SignInScreen.id: (context) => SignInScreen(),
             SignUpScreen.id: (context) => SignUpScreen(),
