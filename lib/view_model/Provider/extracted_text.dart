@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class TranslatedText extends ChangeNotifier {
   String _translatedText;
@@ -8,5 +8,7 @@ class TranslatedText extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get translatedText => _translatedText;
+  String getTranslatedText() {
+    return _translatedText;
+  }
 }

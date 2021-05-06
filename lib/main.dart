@@ -20,8 +20,12 @@ Future<void> main(context) async {
   runApp(
     MultiProvider(
       providers: [
-        Provider<FireStoreProvider>(create: (_) => FireStoreProvider()),
-        Provider(create: (context) => TranslatedText()),
+        Provider<FireStoreProvider>(
+          create: (_) => FireStoreProvider(),
+        ),
+        Provider(
+          create: (context) => TranslatedText(),
+        ),
       ],
       child: WillPopScope(
         onWillPop: () async => false,
@@ -30,7 +34,7 @@ Future<void> main(context) async {
           debugShowCheckedModeBanner: false,
           title: 'Clerk',
           initialRoute:
-          _auth.currentUser == null ? SignInScreen.id : HomeScreen.id,
+              _auth.currentUser == null ? SignInScreen.id : HomeScreen.id,
           routes: {
             SignInScreen.id: (context) => SignInScreen(),
             SignUpScreen.id: (context) => SignUpScreen(),

@@ -52,10 +52,12 @@ class _TranslationScreenState extends State<TranslationScreen> {
                         TextFormField(
                           controller: inputField,
                           onChanged: (value) {
-                            translate(text: inputField.text, toLanguage: "ar");
-                            provider.setText(snapshot.data["data"]
-                                ["translations"][0]["translatedText"]);
-                            outputField.text = provider.translatedText;
+                            // provider.setText(snapshot.data["data"]
+                            //     ["translations"][0]["translatedText"]);
+                            setState(() {
+                              outputField.text = snapshot.data["data"]
+                                  ["translations"][0]["translatedText"];
+                            });
                           },
                           maxLines: null,
                           minLines: 11,
