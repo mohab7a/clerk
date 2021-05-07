@@ -13,6 +13,7 @@ class TranslationScreen extends StatefulWidget {
 class _TranslationScreenState extends State<TranslationScreen> {
   TextEditingController inputField = TextEditingController();
   TextEditingController outputField = TextEditingController();
+  Translate translate = Translate();
 
   @override
   void dispose() {
@@ -30,7 +31,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
         return;
       },
       child: FutureBuilder(
-          future: translate(text: inputField.text, toLanguage: 'ar'),
+          future: translate.translate(text: inputField.text, toLanguage: 'ar'),
           builder: (context, snapshot) {
             return SingleChildScrollView(
               child: Column(
@@ -58,7 +59,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
                             // outputField.text = provider.translatedText;
                             setState(() {
                               outputField.text = snapshot.data["data"]
-                              ["translations"][0]["translatedText"];
+                                  ["translations"][0]["translatedText"];
                             });
                           },
                           maxLines: null,

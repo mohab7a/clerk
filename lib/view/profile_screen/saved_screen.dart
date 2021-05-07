@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SavedScreen extends StatelessWidget {
+class SavedScreen extends StatefulWidget {
   const SavedScreen({Key key}) : super(key: key);
   static String id = "Saved Screen";
 
+  @override
+  _SavedScreenState createState() => _SavedScreenState();
+}
 
+class _SavedScreenState extends State<SavedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,10 +19,18 @@ class SavedScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         leading: IconButton(
-          onPressed: (){Navigator.pop(context);},
-          icon: Icon(Icons.arrow_back,color: kPrimaryColor,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: kPrimaryColor,
+          ),
         ),
-        title: Text('Saved Documents',style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+        title: Text(
+          'Saved Documents',
+          style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
+        ),
         elevation: 0,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -28,7 +40,7 @@ class SavedScreen extends StatelessWidget {
             .collection('saved')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
@@ -36,11 +48,31 @@ class SavedScreen extends StatelessWidget {
             );
           }
           return ListView.builder(
-            itemCount: snapshot.data.size,
-            itemBuilder: (ctx, index) => ListTile(
-              title: Text(snapshot.data.docs[index].id),
-            ),
-          );
+              itemCount: snapshot.data.size,
+              itemBuilder: (ctx, index) {
+                final doc = snapshot.data.docs[index];
+                return Card(
+                  child: Dismissible(
+                    key: ValueKey<QueryDocumentSnapshot>(doc),
+                    onDismissed: (DismissDirection direction) {
+                      setState(() {
+                        snapshot.data.docs[index].reference.delete();
+                      });
+                    },
+                    background: Container(
+                      color: Colors.green,
+                      child: Icon(Icons.folder_open_sharp),
+                    ),
+                    secondaryBackground: Container(
+                      color: Colors.red,
+                      child: Icon(Icons.delete),
+                    ),
+                    child: ListTile(
+                      title: Text(snapshot.data.docs[index].id),
+                    ),
+                  ),
+                );
+              });
         },
       ),
     );
