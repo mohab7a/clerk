@@ -5,11 +5,11 @@ import 'options_row.dart';
 
 class TextAreaWidget extends StatefulWidget {
   final String text;
-  final VoidCallback onClickedCopy;
+  // final VoidCallback onClickedCopy;
 
   const TextAreaWidget({
     @required this.text,
-    @required this.onClickedCopy,
+    // @required this.onClickedCopy,
     Key key,
   }) : super(key: key);
 

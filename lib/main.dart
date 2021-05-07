@@ -2,8 +2,9 @@ import 'package:clerk/view/home_screen/home_screen.dart';
 import 'package:clerk/view/profile_screen/profile_screen.dart';
 import 'package:clerk/view/auth_screens/signin_screens/signin_screen.dart';
 import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
+import 'package:clerk/view/profile_screen/saved_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
-import 'package:clerk/view_model/Provider/extracted_text.dart';
+import 'package:clerk/view_model/Provider/translated_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,8 @@ Future<void> main(context) async {
             SignUpScreen.id: (context) => SignUpScreen(),
             NavigationBar.id: (context) => NavigationBar(),
             HomeScreen.id: (context) => HomeScreen(),
-            ProfileScreen.id: (context) => ProfileScreen()
+            ProfileScreen.id: (context) => ProfileScreen(),
+            SavedScreen.id: (context) => SavedScreen(),
           },
         ),
       ),

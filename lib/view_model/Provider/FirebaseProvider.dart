@@ -26,8 +26,10 @@ class FireStoreProvider extends ChangeNotifier {
         .doc(_auth.currentUser.email);
     await document.get().then((snapshot) async {
       data = snapshot.data();
+      notifyListeners();
     });
   }
+
 
   Future firebaseStorage({image, context}) async {
     TaskSnapshot snapshot = await _firebaseStorage

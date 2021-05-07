@@ -60,7 +60,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                             });
                           },
                           maxLines: null,
-                          minLines: 11,
+                          minLines: 12,
                           showCursor: true,
                           cursorColor: kPrimaryColor,
                           decoration: InputDecoration(

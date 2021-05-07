@@ -4,7 +4,7 @@ import 'package:clerk/view/features_screens/components/text_area_widget.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../firebase_ml_text_recognition.dart';
+import '../../../view_model/firebase_ml_text_recognition.dart';
 import 'controls_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {

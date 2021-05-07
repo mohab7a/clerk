@@ -1,5 +1,5 @@
 import 'package:clerk/view/features_screens/components/options_row.dart';
-import 'package:clerk/view_model/Provider/extracted_text.dart';
+import 'package:clerk/view_model/Provider/translated_text.dart';
 import 'package:clerk/view_model/translation_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,15 +52,17 @@ class _TranslationScreenState extends State<TranslationScreen> {
                         TextFormField(
                           controller: inputField,
                           onChanged: (value) {
+                            // translate(text: inputField.text, toLanguage: "ar");
                             // provider.setText(snapshot.data["data"]
                             //     ["translations"][0]["translatedText"]);
+                            // outputField.text = provider.translatedText;
                             setState(() {
                               outputField.text = snapshot.data["data"]
-                                  ["translations"][0]["translatedText"];
+                              ["translations"][0]["translatedText"];
                             });
                           },
                           maxLines: null,
-                          minLines: 11,
+                          minLines: 12,
                           showCursor: true,
                           cursorColor: kPrimaryColor,
                           decoration: InputDecoration(

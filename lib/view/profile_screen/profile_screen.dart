@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:clerk/view/auth_screens/signin_screens/components/Custom_form_field.dart';
+import 'package:clerk/view/profile_screen/saved_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
 import 'package:clerk/view_model/authintication_service/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -246,12 +247,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            ListTile(
-                              leading: Image.asset(
-                                "assets/images/Icon awesome-bookmark.png",
-                                width: size.width * 0.06,
+                            GestureDetector(
+                              onTap: (){Navigator.pushNamed(context, SavedScreen.id);},
+                              child: ListTile(
+                                leading: Image.asset(
+                                  "assets/images/Icon awesome-bookmark.png",
+                                  width: size.width * 0.06,
+                                ),
+                                title: Text("Saved"),
                               ),
-                              title: Text("Saved"),
                             ),
                             SizedBox(
                               height: 10,
@@ -282,8 +286,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                     child: CircularProgressIndicator(
-                  backgroundColor: kPrimaryColor,
-                ));
+                      valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+                ),
+                );
               }
               return Text("No Data");
             }),
