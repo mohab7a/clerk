@@ -1,4 +1,5 @@
 import 'package:clerk/constants.dart';
+import 'package:clerk/view/auth_screens/signin_screens/components/custom_Snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -51,24 +52,25 @@ class _SavedScreenState extends State<SavedScreen> {
               itemCount: snapshot.data.size,
               itemBuilder: (ctx, index) {
                 final doc = snapshot.data.docs[index];
-                return Card(
-                  child: Dismissible(
-                    key: ValueKey<QueryDocumentSnapshot>(doc),
-                    onDismissed: (DismissDirection direction) {
-                      setState(() {
-                        snapshot.data.docs[index].reference.delete();
-                      });
-                    },
-                    background: Container(
-                      color: Colors.green,
-                      child: Icon(Icons.folder_open_sharp),
-                    ),
-                    secondaryBackground: Container(
-                      color: Colors.red,
-                      child: Icon(Icons.delete),
-                    ),
-                    child: ListTile(
-                      title: Text(snapshot.data.docs[index].id),
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Card(
+                    child: Dismissible(
+                      direction: DismissDirection.horizontal,
+                      key: ValueKey<QueryDocumentSnapshot>(doc),
+                      onDismissed: (DismissDirection direction) {
+                        setState(() {
+                          snapshot.data.docs[index].reference.delete();
+                        });
+                        customSnackBar(context, "Removed");
+                      },
+                      secondaryBackground: Container(
+                        color: Colors.red,
+                        child: Icon(Icons.delete),
+                      ),
+                      child: ListTile(
+                        title: Text(snapshot.data.docs[index].id),
+                      ),
                     ),
                   ),
                 );

@@ -1,3 +1,4 @@
+import 'package:clerk/view/auth_screens/signin_screens/components/custom_Snackbar.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,6 +67,7 @@ class _OptionsRowState extends State<OptionsRow> {
                               .doc(controller.text)
                               .set({"document": widget.text});
                           Navigator.pop(context);
+                          customSnackBar(context, "Added To Saved");
                         },
                         child: Text("Save"))
                   ],
@@ -91,13 +93,6 @@ class _OptionsRowState extends State<OptionsRow> {
     if (widget.text.trim() != '') {
       FlutterClipboard.copy(widget.text);
     }
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: kBackgroundColor,
-      duration: Duration(seconds: 2),
-      content: Text(
-        "Text Copied",
-        style: TextStyle(color: kPrimaryColor),
-      ),
-    ));
+    customSnackBar(context, "text Copied");
   }
 }
