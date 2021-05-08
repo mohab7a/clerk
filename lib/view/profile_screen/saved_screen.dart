@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class SavedScreen extends StatefulWidget {
   const SavedScreen({Key key}) : super(key: key);
   static String id = "Saved Screen";
-
   @override
   _SavedScreenState createState() => _SavedScreenState();
 }
@@ -64,7 +63,7 @@ class _SavedScreenState extends State<SavedScreen> {
                         });
                         customSnackBar(context, "Removed");
                       },
-                      secondaryBackground: Container(
+                      background: Container(
                         color: Colors.red,
                         child: Icon(Icons.delete),
                       ),
