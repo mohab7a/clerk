@@ -15,20 +15,21 @@ class ControlsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
     children: [
       ElevatedButton(
         onPressed: onClickedPickImage,
         style: ButtonStyle(backgroundColor: MaterialStateProperty. all<Color>(kPrimaryColor) ),
         child: Text('Pick Image'),
       ),
-      const SizedBox(width: 12),
+      //const SizedBox(width: 28),
       ElevatedButton(
         style: ButtonStyle(backgroundColor: MaterialStateProperty. all<Color>(kPrimaryColor) ),
         onPressed: onClickedScanText,
         child: Text('Scan For Text'),
       ),
-      const SizedBox(width: 12),
+      //const SizedBox(width: 28),
       ElevatedButton(
         style: ButtonStyle(backgroundColor: MaterialStateProperty. all<Color>(kPrimaryColor) ),
         onPressed: onClickedClear,

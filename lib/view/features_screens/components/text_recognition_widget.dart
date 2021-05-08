@@ -26,19 +26,20 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
             onClickedClear: clear,
           ),
           SizedBox(height: 16),
-          OutPutWidget(outputFieldController: outputFieldController)
+           outputFieldController.text != null ? OutPutWidget(outputFieldController: outputFieldController): null,
         ],
       );
 
   Widget buildImage() => Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Container(
-          width: MediaQuery.of(context).size.width - 40,
+          height: MediaQuery.of(context).size.height * 0.26 ,
+          width: MediaQuery.of(context).size.width - 64,
           child: image != null
               ? Image.file(
                   image,
                 )
-              : Icon(Icons.photo, size: 80, color: kPrimaryColor),
+              : Icon(Icons.photo, size: 120, color: kPrimaryColor),
         ),
       );
 

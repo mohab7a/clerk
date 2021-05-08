@@ -50,8 +50,9 @@ class _SavedScreenState extends State<SavedScreen> {
               itemBuilder: (ctx, index) {
                 final doc = snapshot.data.docs[index];
                 return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Card(
+                  padding: const EdgeInsets.symmetric(vertical:5,horizontal: 12),
+                  child: Container(
+                    decoration: kCustomBoxDecoration.copyWith(color: kPrimaryColor),
                     child: Dismissible(
                       direction: DismissDirection.horizontal,
                       key: ValueKey<QueryDocumentSnapshot>(doc),
@@ -62,11 +63,11 @@ class _SavedScreenState extends State<SavedScreen> {
                         customSnackBar(context, "Removed");
                       },
                       background: Container(
-                        color: Colors.red,
-                        child: Icon(Icons.delete),
+                        decoration: kCustomBoxDecoration.copyWith(color:kSecondaryColor ),
+                        child: Icon(Icons.delete,color: Colors.white,),
                       ),
                       child: ListTile(
-                        title: Text(snapshot.data.docs[index].id),
+                        title: Text(snapshot.data.docs[index].id,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                       ),
                     ),
                   ),
