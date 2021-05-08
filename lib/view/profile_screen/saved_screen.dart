@@ -42,9 +42,7 @@ class _SavedScreenState extends State<SavedScreen> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
-              ),
+              child: kLoadingCircle,
             );
           }
           return ListView.builder(

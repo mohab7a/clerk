@@ -10,10 +10,16 @@ class TextExtractionScreen extends StatefulWidget {
 class _TextExtractionScreenState extends State<TextExtractionScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        color: kBackgroundColor,
-        child: TextRecognitionWidget(),
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (overScroll){
+      overScroll.disallowGlow();
+      return;
+    },
+      child: SingleChildScrollView(
+        child: Container(
+          color: kBackgroundColor,
+          child: TextRecognitionWidget(),
+        ),
       ),
     );
   }

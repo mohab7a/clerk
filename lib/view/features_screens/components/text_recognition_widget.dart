@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:clerk/constants.dart';
-import 'package:clerk/view/features_screens/components/text_area_widget.dart';
-import 'package:clipboard/clipboard.dart';
+import 'package:clerk/view/features_screens/components/output_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../view_model/firebase_ml_text_recognition.dart';
@@ -15,6 +14,7 @@ class TextRecognitionWidget extends StatefulWidget {
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
   File image;
+  TextEditingController outputFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => Column(
@@ -26,10 +26,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
             onClickedClear: clear,
           ),
           SizedBox(height: 16),
-          TextAreaWidget(
-            text: text,
-            // onClickedCopy: copyToClipboard,
-          ),
+          OutPutWidget(outputFieldController: outputFieldController)
         ],
       );
 
@@ -52,27 +49,24 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
 
   Future scanText() async {
     showDialog(
-      builder: (context) => Center(
-        child: CircularProgressIndicator(),
-      ),
+      builder: (context) => Center(child: kLoadingCircle,),
       context: context,
     );
 
-    final text = await FirebaseMLApi.recogniseText(image);
-    setText(text);
+    // final text = await FirebaseMLApi.recogniseText(image);
+    outputFieldController.text = await FirebaseMLApi.recogniseText(image);
+    setText( outputFieldController.text);
     Navigator.of(context).pop();
   }
 
   void clear() {
+    setState(() {
+      outputFieldController.text = '';
+    });
     setImage(null);
     setText('');
   }
 
-  void copyToClipboard() {
-    if (text.trim() != '') {
-      FlutterClipboard.copy(text);
-    }
-  }
 
   void setImage(File newImage) {
     setState(() {

@@ -92,7 +92,7 @@ class _OptionsRowState extends State<OptionsRow> {
   void copyToClipboard(context) {
     if (widget.text.trim() != '') {
       FlutterClipboard.copy(widget.text);
+      customSnackBar(context, "text Copied");
     }
-    customSnackBar(context, "text Copied");
   }
 }

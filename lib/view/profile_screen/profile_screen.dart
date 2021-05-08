@@ -29,6 +29,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController _newPassword = TextEditingController();
 
   @override
+  void didChangeDependencies() {
+    Provider.of<FireStoreProvider>(context).getData();
+    super.didChangeDependencies();
+  }
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FireStoreProvider>(context);
     Size size = MediaQuery.of(context).size;
@@ -241,9 +246,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               height: 10,
                             ),
                             GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, SavedScreen.id);
-                              },
+                              onTap: (){Navigator.pushNamed(context, SavedScreen.id);},
                               child: ListTile(
                                 leading: Image.asset(
                                   "assets/images/Icon awesome-bookmark.png",
@@ -279,10 +282,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
+
                 return Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
-                  ),
+                    child: kLoadingCircle,
                 );
               }
               return Text("No Data");
