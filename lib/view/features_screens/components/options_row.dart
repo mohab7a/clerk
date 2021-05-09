@@ -1,4 +1,6 @@
+import 'package:clerk/view/auth_screens/signin_screens/components/Custom_form_field.dart';
 import 'package:clerk/view/auth_screens/signin_screens/components/custom_Snackbar.dart';
+import 'package:clerk/view/components/custom_actions_button.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,27 +51,34 @@ class _OptionsRowState extends State<OptionsRow> {
                 builder: (context) => AlertDialog(
                   title: Text("doc name"),
                   backgroundColor: kDialogBoxColor,
-                  content: TextFormField(
+                  content: CustomFormField(
                     controller: controller,
+                    secure: false,
                   ),
                   actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text("Cancel")),
-                    TextButton(
-                        onPressed: () {
-                          _firebaseFirestore
-                              .collection("Users")
-                              .doc(_auth.currentUser.email)
-                              .collection("saved")
-                              .doc(controller.text)
-                              .set({"document": widget.text});
-                          Navigator.pop(context);
-                          customSnackBar(context, "Added To Saved");
-                        },
-                        child: Text("Save"))
+                    CustomActionsButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      text: "Cancel",
+                      buttonColor: Colors.white,
+                      textColor: Colors.red,
+                    ),
+                    CustomActionsButton(
+                      onPressed: () {
+                        _firebaseFirestore
+                            .collection("Users")
+                            .doc(_auth.currentUser.email)
+                            .collection("saved")
+                            .doc(controller.text)
+                            .set({"document": widget.text});
+                        Navigator.pop(context);
+                        customSnackBar(context, "Added To Saved");
+                      },
+                      text: "Save",
+                      buttonColor: kPrimaryColor,
+                      textColor: Colors.white,
+                    )
                   ],
                 ),
               );
