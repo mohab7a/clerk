@@ -2,7 +2,7 @@ import 'package:clerk/view/auth_screens/signin_screens/components/Custom_form_fi
 import 'package:clerk/view/auth_screens/signin_screens/components/default_button.dart';
 import 'package:clerk/view/auth_screens/signin_screens/signin_screen.dart';
 import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
-import 'package:clerk/view_model/authintication_service/firebase_service.dart';
+import 'package:clerk/view_model/authentication%20_service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

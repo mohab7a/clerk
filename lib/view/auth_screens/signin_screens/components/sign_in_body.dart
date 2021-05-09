@@ -1,8 +1,7 @@
 import 'package:clerk/view/auth_screens/signin_screens/components/snack_bar.dart';
 import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
-import 'package:clerk/view_model/authintication_service/firebase_service.dart';
+import 'package:clerk/view_model/authentication%20_service/firebase_service.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../constants.dart';
 import 'Custom_form_field.dart';
 import 'default_button.dart';

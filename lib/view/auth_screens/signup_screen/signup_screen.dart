@@ -1,6 +1,6 @@
 import 'package:clerk/constants.dart';
 import 'package:clerk/view/auth_screens/signup_screen/components/sign_up_body.dart';
-import 'package:clerk/view_model/authintication_service/firebase_service.dart';
+import 'package:clerk/view_model/authentication%20_service/firebase_service.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {

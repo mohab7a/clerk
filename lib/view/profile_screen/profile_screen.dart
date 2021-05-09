@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:clerk/view/auth_screens/signin_screens/components/Custom_form_field.dart';
+import 'package:clerk/view/profile_screen/components/new_password_dialog.dart';
 import 'package:clerk/view/profile_screen/saved_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
-import 'package:clerk/view_model/authintication_service/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:clerk/view_model/authentication%20_service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -19,20 +18,17 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final _formKey = GlobalKey<FormState>();
-  FirebaseAuth _auth = FirebaseAuth.instance;
   File _image; //here we gonna store our image.
   FireBaseService _service = FireBaseService();
   TextEditingController _name = TextEditingController();
   TextEditingController _userName = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  TextEditingController _newPassword = TextEditingController();
 
   @override
   void didChangeDependencies() {
     Provider.of<FireStoreProvider>(context).getData();
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FireStoreProvider>(context);
@@ -165,88 +161,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 trailingIcon:
                                     "assets/images/Icon material-edit.png",
                                 press: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                            title: Text(
-                                              "New Password",
-                                              style: TextStyle(
-                                                  color: kPrimaryColor),
-                                            ),
-                                            backgroundColor: kDialogBoxColor,
-                                            content: Form(
-                                              key: _formKey,
-                                              child: Column(
-                                                children: [
-                                                  CustomFormField(
-                                                    hintText:
-                                                        "Enter Old Password",
-                                                    controller: _password,
-                                                    secure: true,
-                                                    validator: (value) {
-                                                      if (value !=
-                                                          provider
-                                                              .data["password"])
-                                                        return "Please enter Old password";
-                                                    },
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  CustomFormField(
-                                                    hintText:
-                                                        "Enter new password",
-                                                    controller: _newPassword,
-                                                    secure: true,
-                                                    validator: (value) {
-                                                      if (value.isEmpty ||
-                                                          value.length > 8)
-                                                        return "Please Enter Strong Password";
-                                                    },
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  CustomFormField(
-                                                    hintText:
-                                                        "Confirm new password",
-                                                    secure: true,
-                                                    validator: (value) {
-                                                      if (value.isEmpty ||
-                                                          value !=
-                                                              _newPassword.text)
-                                                        return "Password don't match";
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text("Cancel")),
-                                              TextButton(
-                                                  onPressed: () {
-                                                    if (_formKey.currentState
-                                                        .validate()) {
-                                                      _auth.currentUser
-                                                          .updatePassword(
-                                                              _newPassword
-                                                                  .text);
-                                                      provider.updateData(
-                                                          key: "password",
-                                                          value: _newPassword
-                                                              .text);
-                                                      Navigator.pop(context);
-                                                    }
-                                                  },
-                                                  child: Text("Save"))
-                                            ],
-                                          ));
+                                  newPasswordDialog(context, provider);
                                 }),
                             SizedBox(
                               height: 10,
                             ),
                             GestureDetector(
-                              onTap: (){Navigator.pushNamed(context, SavedScreen.id);},
+                              onTap: () {
+                                Navigator.pushNamed(context, SavedScreen.id);
+                              },
                               child: ListTile(
                                 leading: Image.asset(
                                   "assets/images/Icon awesome-bookmark.png",
@@ -260,10 +183,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                // SharedPreferences prefs =
-                                //     await SharedPreferences.getInstance();
-                                // prefs
-                                //     .remove("userLogin")
                                 _service.signOut(context);
                               },
                               child: ListTile(
@@ -282,9 +201,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
-
                 return Center(
-                    child: kLoadingCircle,
+                  child: kLoadingCircle,
                 );
               }
               return Text("No Data");
