@@ -1,4 +1,4 @@
-import 'package:clerk/view/features_screens/components/output_widget.dart';
+import 'package:clerk/view/components/output_widget.dart';
 import 'package:clerk/view_model/translation_api.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
@@ -23,8 +23,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: translate.translate(
-            text: inputFieldController.text, toLanguage: 'ar'),
+        future: translate.translate(text: inputFieldController.text, toLanguage: 'ar'),
         builder: (context, snapshot) {
           return SingleChildScrollView(
             child: Column(
@@ -34,11 +33,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  margin: EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
+                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 20,),
                   decoration: kCustomBoxDecoration,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

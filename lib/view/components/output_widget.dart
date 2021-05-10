@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import '../../constants.dart';
 import 'options_row.dart';
 
 class OutPutWidget extends StatelessWidget {

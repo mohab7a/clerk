@@ -40,7 +40,6 @@ dependencies:
   http:
   share: ^2.0.1
   file_picker:
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

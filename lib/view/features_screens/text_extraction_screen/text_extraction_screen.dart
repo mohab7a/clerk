@@ -1,4 +1,4 @@
-import 'package:clerk/view/features_screens/components/text_recognition_widget.dart';
+import 'package:clerk/view/components/text_recognition_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 

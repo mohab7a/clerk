@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:clerk/constants.dart';
-import 'package:clerk/view/features_screens/components/output_widget.dart';
+import 'package:clerk/view/components/output_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../view_model/firebase_ml_text_recognition.dart';
+import '../../view_model/firebase_ml_text_recognition.dart';
 import 'controls_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
@@ -54,7 +54,6 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       context: context,
     );
 
-    // final text = await FirebaseMLApi.recogniseText(image);
     outputFieldController.text = await FirebaseMLApi.recogniseText(image);
     setText( outputFieldController.text);
     Navigator.of(context).pop();

@@ -1,13 +1,13 @@
 import 'package:clerk/view/auth_screens/signin_screens/components/Custom_form_field.dart';
 import 'package:clerk/view/auth_screens/signin_screens/components/custom_Snackbar.dart';
-import 'package:clerk/view/components/custom_actions_button.dart';
+import 'package:clerk/view/components/custom_action_button.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
-import '../../../constants.dart';
+import '../../constants.dart';
 
 class OptionsRow extends StatefulWidget {
   OptionsRow({Key key, this.text});

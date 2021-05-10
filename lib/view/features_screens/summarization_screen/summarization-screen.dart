@@ -1,5 +1,5 @@
-import 'package:clerk/view/features_screens/components/options_row.dart';
-import 'package:clerk/view/features_screens/components/output_widget.dart';
+import 'package:clerk/view/components/options_row.dart';
+import 'package:clerk/view/components/output_widget.dart';
 import 'package:clerk/view_model/summarization_api.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
