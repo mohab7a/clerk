@@ -60,7 +60,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
                             focusedBorder: InputBorder.none,
                             hintText: 'Enter Text Here'),
                       ),
-                      UploadFileWidget(controller: inputFieldController,text: inputText,),
+                      UploadFileWidget(controller: inputFieldController,),
                     ],
                   ),
                 ),

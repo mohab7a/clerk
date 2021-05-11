@@ -71,7 +71,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                               focusedBorder: InputBorder.none,
                               hintText: 'Enter Text Here'),
                         ),
-                        UploadFileWidget(controller: inputFieldController,text: inputText,)
+                        UploadFileWidget(controller: inputFieldController,)
                       ],
                     ),
                   ),

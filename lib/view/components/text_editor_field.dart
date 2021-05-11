@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:clerk/view/components/upload_file_widget.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -22,8 +19,7 @@ class _TextEditorFieldState extends State<TextEditorField> {
 
   @override
   void initState() {
-    // ignore: unnecessary_statements
-    widget.editorFieldController.addListener(() {});
+    inputText = widget.editorFieldController.text;
     super.initState();
   }
 
@@ -61,7 +57,7 @@ class _TextEditorFieldState extends State<TextEditorField> {
                     hintText: 'Enter Text Here'),
               ),
               UploadFileWidget(
-                controller: widget.editorFieldController, text: inputText,)
+                controller: widget.editorFieldController,)
             ],
           ),
           OptionsRow(text: widget.editorFieldController.text),
