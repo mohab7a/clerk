@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clerk/view/components/upload_file_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,6 @@ class TextEditorField extends StatefulWidget {
   const TextEditorField({
     @required this.editorFieldController,
   });
-
   final TextEditingController editorFieldController;
 
   @override
@@ -18,8 +18,21 @@ class TextEditorField extends StatefulWidget {
 }
 
 class _TextEditorFieldState extends State<TextEditorField> {
-  bool isFileUploaded = false;
-  bool isTextEmpty = true;
+  String inputText = '';
+
+  @override
+  void initState() {
+    // ignore: unnecessary_statements
+    widget.editorFieldController.addListener(() {});
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.editorFieldController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,9 +46,9 @@ class _TextEditorFieldState extends State<TextEditorField> {
             children: [
               TextField(
                 controller: widget.editorFieldController,
-                onChanged: (value) {
+                onChanged: (text) {
                   setState(() {
-                    isTextEmpty = false;
+                    inputText = text;
                   });
                 },
                 maxLines: null,
@@ -47,36 +60,13 @@ class _TextEditorFieldState extends State<TextEditorField> {
                     focusedBorder: InputBorder.none,
                     hintText: 'Enter Text Here'),
               ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: IconButton(
-                    icon: isFileUploaded == false || isTextEmpty == true
-                        ? Icon(
-                            Icons.upload_file,
-                            color: kPrimaryColor,
-                          )
-                        : Icon(null),
-                    onPressed: () {
-                      readText();
-                    }),
-              )
+              UploadFileWidget(
+                controller: widget.editorFieldController, text: inputText,)
             ],
           ),
           OptionsRow(text: widget.editorFieldController.text),
         ],
       ),
     );
-  }
-
-  Future readText() async {
-    setState(() async {
-      FilePickerResult file = await FilePicker.platform.pickFiles();
-      String text = await File(file.files.single.path).readAsString();
-      widget.editorFieldController.text = text;
-      setState(() {
-        isFileUploaded = true;
-      });
-    });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:clerk/view/components/output_widget.dart';
+import 'package:clerk/view/components/upload_file_widget.dart';
 import 'package:clerk/view_model/translation_api.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
@@ -12,6 +13,9 @@ class _TranslationScreenState extends State<TranslationScreen> {
   TextEditingController inputFieldController = TextEditingController();
   TextEditingController outputFieldController = TextEditingController();
   Translate translate = Translate();
+  String inputText = '';
+  String outputText = '';
+  @override
 
   @override
   void dispose() {
@@ -35,13 +39,17 @@ class _TranslationScreenState extends State<TranslationScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   margin: EdgeInsets.only(left: 20, right: 20, bottom: 20,),
                   decoration: kCustomBoxDecoration,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Stack(
                     children: [
                       TextFormField(
                         controller: inputFieldController,
-                        onChanged: (value) {
+                        onChanged: (text) {
+                          inputText = text;
                           translateText(snapshot);
+                          if(inputText.length == 0){
+                            inputFieldController.clear();
+                            outputFieldController.clear();
+                          }
                         },
                         maxLines: null,
                         minLines: 12,
@@ -52,6 +60,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
                             focusedBorder: InputBorder.none,
                             hintText: 'Enter Text Here'),
                       ),
+                      UploadFileWidget(controller: inputFieldController,text: inputText,),
                     ],
                   ),
                 ),
@@ -64,8 +73,8 @@ class _TranslationScreenState extends State<TranslationScreen> {
 
   void translateText(AsyncSnapshot snapshot) {
     setState(() {
-      outputFieldController.text =
-          snapshot.data["data"]["translations"][0]["translatedText"];
+      outputText = snapshot.data["data"]["translations"][0]["translatedText"];
+      outputFieldController.text = outputText;
     });
   }
 }

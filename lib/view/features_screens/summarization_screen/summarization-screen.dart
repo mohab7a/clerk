@@ -1,5 +1,6 @@
 import 'package:clerk/view/components/options_row.dart';
 import 'package:clerk/view/components/output_widget.dart';
+import 'package:clerk/view/components/upload_file_widget.dart';
 import 'package:clerk/view_model/summarization_api.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
@@ -12,7 +13,7 @@ class SummarizationScreen extends StatefulWidget {
 class _SummarizationScreenState extends State<SummarizationScreen> {
   TextEditingController inputFieldController = TextEditingController();
   TextEditingController outputFieldController = TextEditingController();
-
+  String inputText = '';
   @override
   void initState() {
     super.initState();
@@ -49,13 +50,17 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                       bottom: 20,
                     ),
                     decoration: kCustomBoxDecoration,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Stack(
                       children: [
                         TextFormField(
                           controller: inputFieldController,
-                          onChanged: (value) {
+                          onChanged: (text) {
+                            inputText = text;
                             summmarizeText(snapshot);
+                            if(inputText.length == 0){
+                              inputFieldController.clear();
+                              outputFieldController.clear();
+                            }
                           },
                           maxLines: null,
                           minLines: 12,
@@ -66,6 +71,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                               focusedBorder: InputBorder.none,
                               hintText: 'Enter Text Here'),
                         ),
+                        UploadFileWidget(controller: inputFieldController,text: inputText,)
                       ],
                     ),
                   ),
