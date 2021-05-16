@@ -5,6 +5,7 @@ import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
 import 'package:clerk/view/profile_screen/saved_screen.dart';
 import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
 import 'package:clerk/view_model/Provider/translated_text.dart';
+import 'package:clerk/view_model/text_detection_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

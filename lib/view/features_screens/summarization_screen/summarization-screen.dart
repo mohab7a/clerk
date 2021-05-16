@@ -1,7 +1,7 @@
-import 'package:clerk/view/components/options_row.dart';
 import 'package:clerk/view/components/output_widget.dart';
 import 'package:clerk/view/components/upload_file_widget.dart';
 import 'package:clerk/view_model/summarization_api.dart';
+import 'package:clerk/view_model/text_detection_api.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
@@ -34,7 +34,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
         return;
       },
       child: FutureBuilder(
-          future: summarize(text: inputFieldController.text, sentences: 5),
+          future: gec(text: inputFieldController.text),
           builder: (context, snapshot) {
             return SingleChildScrollView(
               child: Column(
@@ -57,7 +57,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                           onChanged: (text) {
                             inputText = text;
                             summmarizeText(snapshot);
-                            if(inputText.length == 0){
+                            if (inputText.length == 0) {
                               inputFieldController.clear();
                               outputFieldController.clear();
                             }
@@ -71,7 +71,9 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                               focusedBorder: InputBorder.none,
                               hintText: 'Enter Text Here'),
                         ),
-                        UploadFileWidget(controller: inputFieldController,)
+                        UploadFileWidget(
+                          controller: inputFieldController,
+                        )
                       ],
                     ),
                   ),
@@ -86,7 +88,7 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
   void summmarizeText(AsyncSnapshot snapshot) {
     setState(() {
       summarize(text: inputFieldController.text, sentences: 5);
-      outputFieldController.text = snapshot.data["summary"];
+      outputFieldController.text = snapshot.data["Output: "];
     });
   }
 }

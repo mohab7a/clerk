@@ -5,6 +5,7 @@ import 'package:clerk/view/features_screens/text_extraction_screen/text_extracti
 import 'package:clerk/view/features_screens/translation_screen/translation_screen.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
+import 'error_correction_screen/error_correction_screen.dart';
 
 // ignore: must_be_immutable
 class NavigationBar extends StatefulWidget {
@@ -20,6 +21,7 @@ class _NavigationBarState extends State<NavigationBar> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
