@@ -1,51 +1,45 @@
-import 'package:clerk/view/home_screen/home_screen.dart';
-import 'package:clerk/view/profile_screen/profile_screen.dart';
-import 'package:clerk/view/auth_screens/signin_screens/signin_screen.dart';
-import 'package:clerk/view/auth_screens/signup_screen/signup_screen.dart';
-import 'package:clerk/view/profile_screen/saved_screen.dart';
-import 'package:clerk/view_model/Provider/FirebaseProvider.dart';
-import 'package:clerk/view_model/Provider/translated_text.dart';
-import 'package:clerk/view_model/text_detection_api.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:clerk/shared/constants.dart';
+import 'package:clerk/networks/local/cache_helper.dart';
+import 'package:clerk/networks/remote/dio_helper.dart';
+import 'package:clerk/shared/cubit/cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'view/features_screens/nav_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-Future<void> main(context) async {
-  Provider.debugCheckInvalidValueType = null;
+import 'modules/auth_screens/login_screen/login_screen.dart';
+import 'modules/auth_screens/register_screen/register_screen.dart';
+import 'modules/home_screen/home_screen.dart';
+import 'modules/profile_screen/profile_screen.dart';
+import 'modules/profile_screen/saved_screen.dart';
+import 'shared/bloc_observer.dart';
+import 'layout/home_layout.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //SharedPreferences prefs = await SharedPreferences.getInstance();
-  //var loggedIn = prefs.getBool("userLogin") ?? false;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  await CacheHelper.init();
+  DioHelper.init();
+  Bloc.observer = MyBlocObserver();
+  userId = CacheHelper.getData("token");
   runApp(
-    MultiProvider(
-      providers: [
-        Provider<FireStoreProvider>(
-          create: (_) => FireStoreProvider(),
-        ),
-        Provider(
-          create: (context) => TranslatedText(),
-        ),
-      ],
-      child: WillPopScope(
-        onWillPop: () async => false,
-        child: MaterialApp(
-          theme: ThemeData(),
-          debugShowCheckedModeBanner: false,
-          title: 'Clerk',
-          initialRoute:
-              _auth.currentUser == null ? SignInScreen.id : HomeScreen.id,
-          routes: {
-            SignInScreen.id: (context) => SignInScreen(),
-            SignUpScreen.id: (context) => SignUpScreen(),
-            NavigationBar.id: (context) => NavigationBar(),
-            HomeScreen.id: (context) => HomeScreen(),
-            ProfileScreen.id: (context) => ProfileScreen(),
-            SavedScreen.id: (context) => SavedScreen(),
-          },
-        ),
+    BlocProvider(
+      create: (context) => AppCubit()
+        ..getUserData()
+        ..translateText(text: "")
+        ..summarizeText(text: ""),
+      child: MaterialApp(
+        theme: ThemeData(),
+        debugShowCheckedModeBanner: false,
+        title: 'Clerk',
+        initialRoute: userId == null ? LoginScreen.id : HomeScreen.id,
+        routes: {
+          LoginScreen.id: (context) => LoginScreen(),
+          RegisterScreen.id: (context) => RegisterScreen(),
+          HomeLayout.id: (context) => HomeLayout(),
+          HomeScreen.id: (context) => HomeScreen(),
+          ProfileScreen.id: (context) => ProfileScreen(),
+          SavedScreen.id: (context) => SavedScreen(),
+        },
       ),
     ),
   );
