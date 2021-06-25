@@ -5,16 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../shared/constants.dart';
 
-class HomeLayout extends StatefulWidget {
+class HomeLayout extends StatelessWidget {
   static String id = "NavBarScreen";
   int selectedIndex = 0;
   HomeLayout({this.selectedIndex});
-
-  @override
-  _HomeLayoutState createState() => _HomeLayoutState();
-}
-
-class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
