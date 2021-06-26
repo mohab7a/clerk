@@ -44,8 +44,8 @@ class FilePickedErrorState extends AppStates {}
 
 class ChangeUploadIconState extends AppStates {}
 
-class ClearTextSuccessState extends AppStates {}
+class TextCorrectionSuccessState extends AppStates {}
 
-class SetTextSuccessState extends AppStates {}
+class TextCorrectionErrorState extends AppStates {}
 
-class SetImageSuccessState extends AppStates {}
+

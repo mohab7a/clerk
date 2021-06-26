@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clerk/models/textcorrection_model.dart';
 import 'package:clerk/modules/error_correction_screen/error_correction_screen.dart';
 import 'package:clerk/modules/summarization_screen/summarization-screen.dart';
 import 'package:clerk/modules/text_extraction_screen/text_extraction_screen.dart';
@@ -41,7 +42,9 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   static AppCubit get(context) => BlocProvider.of(context);
+
   UserModel userModel;
+
   void getUserData() {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance
@@ -136,7 +139,6 @@ class AppCubit extends Cubit<AppStates> {
           "of": "json"
         }).then((value) {
       summarizationModel = SummarizationModel.fromJson(value.data);
-      print(translationModel.data.translations[0].translatedText);
       emit(SummarizeTextSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -167,5 +169,18 @@ class AppCubit extends Cubit<AppStates> {
     isUploaded = isShow;
     uploadIcon = icon;
     emit(ChangeUploadIconState());
+  }
+  TextCorrectionModel textCorrectionModel;
+  void textCorrection(String text){
+    DioHelper.postData(url:"http://3903b0a68675.ngrok.io/predict",query: {
+      "text" : text
+    }).then((value){
+      textCorrectionModel = TextCorrectionModel.fromJson(value.data);
+      print(textCorrectionModel.output);
+      emit(TextCorrectionSuccessState());
+    }).catchError((error){
+      print(error.toString());
+      emit(TextCorrectionErrorState());
+    });
   }
 }
