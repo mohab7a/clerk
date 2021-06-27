@@ -61,7 +61,7 @@ Widget defaultButton(
         Color color = kPrimaryColor,
         Function onPressed,
         double width = double.infinity,
-        double height = 40,
+        double height = 50,
         Color textColor = Colors.white}) =>
     GestureDetector(
       onTap: onPressed,
@@ -83,7 +83,7 @@ Widget defaultSocialButton(
         {String text,
         Color color = Colors.white,
         double width = double.infinity,
-        double height = 40,
+        double height = 50,
         BuildContext context,
         Color textColor = kPrimaryColor}) =>
     Container(
@@ -270,23 +270,23 @@ AlertDialog editAlertDialog(
     ),
     actions: [
       customActionsButton(
-        buttonColor: Colors.white,
-        textColor: Colors.red,
-        text: "Cancel",
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
+          buttonColor: Colors.white,
+          textColor: Colors.red,
+          text: "Cancel",
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          context: context),
       customActionsButton(
-        onPressed: () {
-          AppCubit.get(context)
-              .updateUserData(key: key, value: controller.text);
-          Navigator.pop(context);
-        },
-        text: "Save",
-        textColor: Colors.white,
-        buttonColor: kPrimaryColor,
-      )
+          onPressed: () {
+            AppCubit.get(context)
+                .updateUserData(key: key, value: controller.text);
+            Navigator.pop(context);
+          },
+          text: "Save",
+          textColor: Colors.white,
+          buttonColor: kPrimaryColor,
+          context: context)
     ],
   );
 }
@@ -460,28 +460,30 @@ Widget uploadFile(
         TextEditingController errorCorrectionController,
         BuildContext context}) =>
     Positioned(
-      right: 0,
-      top: 0,
-      child: IconButton(
-          icon: controller.text.isEmpty
-              ? Icon(AppCubit.get(context).uploadIcon)
-              : Icon(null),
-          color: kPrimaryColor,
-          onPressed: () {
-            AppCubit.get(context).convertFileIntoText(controller);
-            controller.addListener(() {
-              if (translationController.text.isNotEmpty)
-                AppCubit.get(context)
-                    .changeUploadIcon(isShow: true, icon: null);
-              if (errorCorrectionController.text.isNotEmpty)
-                AppCubit.get(context)
-                    .changeUploadIcon(isShow: true, icon: null);
-              else
-                AppCubit.get(context)
-                    .changeUploadIcon(isShow: false, icon: Icons.upload_file);
-            });
-          }),
-    );
+        right: 0,
+        top: 0,
+        child: controller.text.isEmpty
+            ? IconButton(
+                icon: Icon(AppCubit.get(context).uploadIcon),
+                color: kPrimaryColor,
+                onPressed: () {
+                  AppCubit.get(context).convertFileIntoText(controller);
+                })
+            : IconButton(
+                icon: Icon(null),
+              ));
+
+Widget submitButton(
+        {TextEditingController controller,
+        BuildContext context,
+        Function function}) =>
+    Positioned(
+        right: 0,
+        bottom: 0,
+        child: controller.text.isNotEmpty
+            ? defaultButton(
+                height: 30, width: 70, onPressed: function, text: "submit")
+            : Container());
 
 // Widget inputWidget(
 //         {TextEditingController controller,

@@ -170,15 +170,17 @@ class AppCubit extends Cubit<AppStates> {
     uploadIcon = icon;
     emit(ChangeUploadIconState());
   }
+
   TextCorrectionModel textCorrectionModel;
-  void textCorrection(String text){
-    DioHelper.postData(url:"http://3903b0a68675.ngrok.io/predict",query: {
-      "text" : text
-    }).then((value){
+  void textCorrection(String text) {
+    emit(TextCorrectionLoadingState());
+    DioHelper.postData(
+        url: "http://3903b0a68675.ngrok.io/predict",
+        query: {"text": text}).then((value) {
       textCorrectionModel = TextCorrectionModel.fromJson(value.data);
       print(textCorrectionModel.output);
       emit(TextCorrectionSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(TextCorrectionErrorState());
     });

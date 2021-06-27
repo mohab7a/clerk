@@ -120,46 +120,52 @@ class RegisterScreen extends StatelessWidget {
                           suffixFunction: () {
                             cubit.changePasswordVisibility();
                           }),
-                      Spacer(),
-                      defaultButton(
-                          text: "sign up",
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              cubit.createEmailAndPassword(
-                                  userName: _userName.text,
-                                  password: _password.text,
-                                  email: _email.text,
-                                  name: _name.text);
-                            }
-                          }),
-                      Spacer(),
-                      defaultSocialButton(
-                          color: Colors.white,
-                          text: "continue with google",
-                          context: context),
-                      Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Do you have an account? ",
-                            style:
-                                TextStyle(color: kPrimaryColor, fontSize: 17),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              navigateTo(
-                                  context: context, page: LoginScreen.id);
-                            },
-                            child: Text(
-                              "Sign In",
-                              style: TextStyle(
-                                  color: kSecondaryColor,
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 17),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: defaultButton(
+                            text: "sign up",
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                cubit.createEmailAndPassword(
+                                    userName: _userName.text,
+                                    password: _password.text,
+                                    email: _email.text,
+                                    name: _name.text);
+                              }
+                            }),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: defaultSocialButton(
+                            color: Colors.white,
+                            text: "continue with google",
+                            context: context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Do you have an account? ",
+                              style:
+                                  TextStyle(color: kPrimaryColor, fontSize: 17),
                             ),
-                          )
-                        ],
+                            GestureDetector(
+                              onTap: () {
+                                navigateTo(
+                                    context: context, page: LoginScreen.id);
+                              },
+                              child: Text(
+                                "Sign In",
+                                style: TextStyle(
+                                    color: kSecondaryColor,
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 17),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       Spacer()
                     ],

@@ -4,6 +4,7 @@ import 'package:clerk/shared/cubit/states.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../shared/constants.dart';
 
 class SummarizationScreen extends StatefulWidget {
@@ -28,9 +29,17 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
               outputFieldController.text =
                   AppCubit.get(context).summarizationModel.summary;
             }
+            // if (state is SummarizeTextLoadingState) {
+            //   showDialog(
+            //       context: context,
+            //       builder: (context) => AlertDialog(
+            //             content: SpinKitThreeBounce(
+            //               color: Colors.red,
+            //             ),
+            //           ));
+            // }
           },
           builder: (context, state) {
-            AppCubit cubit = AppCubit.get(context);
             return ConditionalBuilder(
               condition: AppCubit.get(context).summarizationModel != null,
               builder: (context) => SingleChildScrollView(
@@ -52,18 +61,16 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                         children: [
                           TextFormField(
                             controller: inputFieldController,
+                            maxLines: null,
+                            minLines: 12,
+                            showCursor: true,
+                            cursorColor: kPrimaryColor,
                             onChanged: (value) {
-                              cubit.summarizeText(text: value);
                               outputFieldController.addListener(() {
                                 if (inputFieldController.text.isEmpty)
                                   outputFieldController.text = "";
                               });
                             },
-                            onFieldSubmitted: (value) {},
-                            maxLines: null,
-                            minLines: 12,
-                            showCursor: true,
-                            cursorColor: kPrimaryColor,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -72,9 +79,39 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                           uploadFile(
                               controller: inputFieldController,
                               context: context),
+                          submitButton(
+                              context: context,
+                              controller: inputFieldController,
+                              function: () {
+                                AppCubit.get(context).summarizeText(
+                                    text: inputFieldController.text);
+                              })
                         ],
                       ),
                     ),
+                    if (state is SummarizeTextLoadingState)
+                      Column(
+                        children: [
+                          SpinKitThreeBounce(
+                            color: kSecondaryColor,
+                            size: 30,
+                          ),
+                        ],
+                      ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    // Column(
+                    //   children: [
+                    //     SizedBox(
+                    //       height: 5,
+                    //     ),
+                    //     LinearProgressIndicator(),
+                    //     SizedBox(
+                    //       height: 5,
+                    //     ),
+                    //   ],
+                    // ),
                     outputWidget(outputFieldController: outputFieldController),
                   ],
                 ),

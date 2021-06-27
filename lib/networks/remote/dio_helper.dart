@@ -4,7 +4,7 @@ class DioHelper {
   static Dio dio;
 
   static init() {
-    dio = Dio();
+    dio = Dio(BaseOptions(receiveDataWhenStatusError: true));
   }
 
   static Future<Response> getData({String url, Map<String, dynamic> query}) {
