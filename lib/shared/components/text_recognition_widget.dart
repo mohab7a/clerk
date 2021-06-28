@@ -19,10 +19,13 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   Widget build(BuildContext context) => Column(
         children: [
           buildImage(),
-          controlsWidget(
-            onClickedPickImage: pickImage,
-            onClickedScanText: scanText,
-            onClickedClear: clear,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: controlsWidget(
+              onClickedPickImage: pickImage,
+              onClickedScanText: scanText,
+              onClickedClear: clear,
+            ),
           ),
           SizedBox(height: 16),
           outputFieldController.text != null
@@ -32,10 +35,10 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       );
 
   Widget buildImage() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.26,
-          width: MediaQuery.of(context).size.width - 64,
+          height: MediaQuery.of(context).size.height * 0.20,
+          //width: MediaQuery.of(context).size.width - 64,
           child: image != null
               ? Image.file(
                   image,

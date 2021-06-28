@@ -1,3 +1,4 @@
+import 'package:clerk/models/saved_doc_model.dart';
 import 'package:clerk/shared/constants.dart';
 import 'package:clerk/models/user_model.dart';
 import 'package:clerk/shared/cubit/cubit.dart';
@@ -61,7 +62,7 @@ Widget defaultButton(
         Color color = kPrimaryColor,
         Function onPressed,
         double width = double.infinity,
-        double height = 50,
+        double height = 40,
         Color textColor = Colors.white}) =>
     GestureDetector(
       onTap: onPressed,
@@ -83,7 +84,7 @@ Widget defaultSocialButton(
         {String text,
         Color color = Colors.white,
         double width = double.infinity,
-        double height = 50,
+        double height = 40,
         BuildContext context,
         Color textColor = kPrimaryColor}) =>
     Container(
@@ -389,12 +390,14 @@ Widget optionsRow({
                               context: context),
                           customActionsButton(
                             onPressed: () {
+                              SavedDocModel model = SavedDocModel(
+                                  docContent: text, docName: controller.text);
                               FirebaseFirestore.instance
                                   .collection("users")
                                   .doc(userId)
                                   .collection("saved")
                                   .doc(controller.text)
-                                  .set({"document": text});
+                                  .set(model.toMap());
                               Navigator.pop(context);
                               customSnackBar(
                                   context: context, text: "Added To Saved");
@@ -424,7 +427,9 @@ Widget optionsRow({
         });
 
 Widget outputWidget(
-        {TextEditingController outputFieldController, BuildContext context}) =>
+        {TextEditingController outputFieldController,
+        TextEditingController inputFieldController,
+        BuildContext context}) =>
     Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       margin: EdgeInsets.only(
@@ -440,6 +445,10 @@ Widget outputWidget(
             controller: outputFieldController,
             readOnly: true,
             maxLines: null,
+            onChanged: (value) {
+              if (inputFieldController.text.isEmpty)
+                outputFieldController.text = "";
+            },
             minLines: 10,
             showCursor: false,
             cursorColor: kPrimaryColor,
@@ -453,12 +462,7 @@ Widget outputWidget(
       ),
     );
 
-Widget uploadFile(
-        {TextEditingController controller,
-        TextEditingController translationController,
-        TextEditingController summarizationController,
-        TextEditingController errorCorrectionController,
-        BuildContext context}) =>
+Widget uploadFile({TextEditingController controller, BuildContext context}) =>
     Positioned(
         right: 0,
         top: 0,
@@ -470,6 +474,7 @@ Widget uploadFile(
                   AppCubit.get(context).convertFileIntoText(controller);
                 })
             : IconButton(
+                onPressed: () {},
                 icon: Icon(null),
               ));
 
@@ -485,33 +490,8 @@ Widget submitButton(
                 height: 30, width: 70, onPressed: function, text: "submit")
             : Container());
 
-// Widget inputWidget(
-//         {TextEditingController controller,
-//         Function function,
-//         BuildContext context}) =>
-//     Container(
-//       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//       margin: EdgeInsets.only(
-//         left: 20,
-//         right: 20,
-//         bottom: 20,
-//       ),
-//       decoration: kCustomBoxDecoration,
-//       child: Stack(
-//         children: [
-//           TextFormField(
-//             controller: controller,
-//             onChanged: (value) => Function,
-//             maxLines: null,
-//             minLines: 12,
-//             showCursor: true,
-//             cursorColor: kPrimaryColor,
-//             decoration: InputDecoration(
-//                 border: InputBorder.none,
-//                 focusedBorder: InputBorder.none,
-//                 hintText: 'Enter Text Here'),
-//           ),
-//           uploadFile(controller: controller, context: context),
-//         ],
-//       ),
-//     );
+Widget buildDivider({@required Color color}) => Container(
+      height: 1,
+      width: double.infinity,
+      color: color,
+    );

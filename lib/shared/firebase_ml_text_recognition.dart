@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 class FirebaseMLApi {
@@ -12,7 +11,6 @@ class FirebaseMLApi {
       try {
         final visionText = await textRecognizer.processImage(visionImage);
         await textRecognizer.close();
-
         final text = extractText(visionText);
         return text.isEmpty ? 'No text found in the image' : text;
       } catch (error) {
@@ -23,7 +21,6 @@ class FirebaseMLApi {
 
   static extractText(VisionText visionText) {
     String text = '';
-
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
@@ -32,7 +29,6 @@ class FirebaseMLApi {
         text = text + '\n';
       }
     }
-
     return text;
   }
 }

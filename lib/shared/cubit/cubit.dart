@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clerk/models/saved_doc_model.dart';
 import 'package:clerk/models/textcorrection_model.dart';
 import 'package:clerk/modules/error_correction_screen/error_correction_screen.dart';
 import 'package:clerk/modules/summarization_screen/summarization-screen.dart';
@@ -24,8 +25,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-import '../firebase_ml_text_recognition.dart';
-
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(ClerkInitialState());
   int selectedIndex = 0;
@@ -43,8 +42,8 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit get(context) => BlocProvider.of(context);
 
+  // Get User Data
   UserModel userModel;
-
   void getUserData() {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance
@@ -57,6 +56,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  // Update User Data
   void updateUserData({
     String key,
     String value,
@@ -111,6 +111,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  // Translation Text
   TranslationModel translationModel;
   void translateText({String text}) {
     emit(TranslateTextLoadingState());
@@ -119,7 +120,6 @@ class AppCubit extends Cubit<AppStates> {
             query: {"key": translationApiKey, "q": text, "target": "ar"})
         .then((value) {
       translationModel = TranslationModel.fromJson(value.data);
-      print(translationModel.data.translations[0].translatedText);
       emit(TranslateTextSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -127,6 +127,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  // Summarize Text
   SummarizationModel summarizationModel;
   void summarizeText({String text}) {
     emit(SummarizeTextLoadingState());
@@ -171,11 +172,12 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeUploadIconState());
   }
 
+  // Error Correction
   TextCorrectionModel textCorrectionModel;
   void textCorrection(String text) {
     emit(TextCorrectionLoadingState());
     DioHelper.postData(
-        url: "http://3903b0a68675.ngrok.io/predict",
+        url: "http://0b599c918c4c.ngrok.io/predict",
         query: {"text": text}).then((value) {
       textCorrectionModel = TextCorrectionModel.fromJson(value.data);
       print(textCorrectionModel.output);
@@ -183,6 +185,21 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       print(error.toString());
       emit(TextCorrectionErrorState());
+    });
+  }
+
+  List<SavedDocModel> savedDocModel = [];
+  void getSavedDocs() {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(userId)
+        .collection("saved")
+        .snapshots()
+        .listen((event) {
+      savedDocModel = [];
+      event.docs.forEach((element) {
+        savedDocModel.add(SavedDocModel.fromJson(element.data()));
+      });
     });
   }
 }

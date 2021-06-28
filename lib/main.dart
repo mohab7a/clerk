@@ -26,7 +26,7 @@ void main() async {
       create: (context) => AppCubit()
         ..getUserData()
         ..translateText(text: "")
-        ..summarizeText(text: ""),
+        ..getSavedDocs(),
       child: MaterialApp(
         theme: ThemeData(),
         debugShowCheckedModeBanner: false,

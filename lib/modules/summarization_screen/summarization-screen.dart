@@ -29,19 +29,10 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
               outputFieldController.text =
                   AppCubit.get(context).summarizationModel.summary;
             }
-            // if (state is SummarizeTextLoadingState) {
-            //   showDialog(
-            //       context: context,
-            //       builder: (context) => AlertDialog(
-            //             content: SpinKitThreeBounce(
-            //               color: Colors.red,
-            //             ),
-            //           ));
-            // }
           },
           builder: (context, state) {
             return ConditionalBuilder(
-              condition: AppCubit.get(context).summarizationModel != null,
+              condition: true,
               builder: (context) => SingleChildScrollView(
                 child: Column(
                   children: [
@@ -66,10 +57,15 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                             showCursor: true,
                             cursorColor: kPrimaryColor,
                             onChanged: (value) {
-                              outputFieldController.addListener(() {
-                                if (inputFieldController.text.isEmpty)
-                                  outputFieldController.text = "";
-                              });
+                              if (inputFieldController.text.isEmpty)
+                                outputFieldController.text = "";
+                              AppCubit.get(context).changeUploadIcon(
+                                  isShow: false, icon: Icons.upload_file);
+                              if (inputFieldController.text.isNotEmpty)
+                                AppCubit.get(context).changeUploadIcon(
+                                  isShow: true,
+                                  icon: null,
+                                );
                             },
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -101,18 +97,9 @@ class _SummarizationScreenState extends State<SummarizationScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    // Column(
-                    //   children: [
-                    //     SizedBox(
-                    //       height: 5,
-                    //     ),
-                    //     LinearProgressIndicator(),
-                    //     SizedBox(
-                    //       height: 5,
-                    //     ),
-                    //   ],
-                    // ),
-                    outputWidget(outputFieldController: outputFieldController),
+                    outputWidget(
+                        outputFieldController: outputFieldController,
+                        inputFieldController: inputFieldController),
                   ],
                 ),
               ),

@@ -42,6 +42,8 @@ class RegisterScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         children: [
@@ -49,7 +51,7 @@ class RegisterScreen extends StatelessWidget {
                             onTap: () => Navigator.pop(context),
                             child: Image.asset(
                               "assets/images/Arrow back.png",
-                              width: MediaQuery.of(context).size.width * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.05,
                             ),
                           ),
                           SizedBox(

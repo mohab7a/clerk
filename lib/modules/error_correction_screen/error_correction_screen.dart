@@ -55,10 +55,15 @@ class _ErrorCorrectionScreenState extends State<ErrorCorrectionScreen> {
                           TextFormField(
                             controller: inputFieldController,
                             onChanged: (text) {
-                              outputFieldController.addListener(() {
-                                if (inputFieldController.text.isEmpty)
-                                  outputFieldController.text = "";
-                              });
+                              if (inputFieldController.text.isEmpty)
+                                outputFieldController.text = "";
+                              AppCubit.get(context).changeUploadIcon(
+                                  isShow: false, icon: Icons.upload_file);
+                              if (inputFieldController.text.isNotEmpty)
+                                AppCubit.get(context).changeUploadIcon(
+                                  isShow: true,
+                                  icon: null,
+                                );
                             },
                             maxLines: null,
                             minLines: 12,
@@ -91,7 +96,13 @@ class _ErrorCorrectionScreenState extends State<ErrorCorrectionScreen> {
                           ),
                         ],
                       ),
-                    outputWidget(outputFieldController: outputFieldController),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    outputWidget(
+                      outputFieldController: outputFieldController,
+                      inputFieldController: inputFieldController,
+                    ),
                   ],
                 ),
               ),

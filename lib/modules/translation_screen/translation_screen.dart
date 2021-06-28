@@ -33,7 +33,7 @@ class _TranslationScreenState extends State<TranslationScreen> {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             return ConditionalBuilder(
-              condition: AppCubit.get(context).translationModel != null,
+              condition: true,
               builder: (context) => SingleChildScrollView(
                 child: Column(
                   children: [
@@ -55,18 +55,15 @@ class _TranslationScreenState extends State<TranslationScreen> {
                             controller: inputFieldController,
                             onChanged: (value) {
                               cubit.translateText(text: value);
-                              inputFieldController.addListener(() {
-                                if (inputFieldController.text.isNotEmpty)
-                                  outputFieldController.text = cubit
-                                      .translationModel
-                                      .data
-                                      .translations[0]
-                                      .translatedText;
-                              });
-                              outputFieldController.addListener(() {
-                                if (inputFieldController.text.isEmpty)
-                                  outputFieldController.text = "";
-                              });
+                              if (inputFieldController.text.isNotEmpty)
+                                outputFieldController.text = cubit
+                                    .translationModel
+                                    .data
+                                    .translations[0]
+                                    .translatedText;
+
+                              if (inputFieldController.text.isEmpty)
+                                outputFieldController.text = "";
                             },
                             maxLines: null,
                             minLines: 12,

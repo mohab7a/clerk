@@ -1,3 +1,4 @@
+// Error Correction Model
 class TextCorrectionModel {
   String output;
   int producedOverallCorrections;
