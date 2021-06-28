@@ -124,7 +124,7 @@ class SavedScreen extends StatelessWidget {
             condition: AppCubit.get(context).savedDocModel.isNotEmpty,
             builder: (context) => ListView.separated(
                 itemBuilder: (context, index) => buildSavedDoc(
-                    AppCubit.get(context).savedDocModel[index], context),
+                    AppCubit.get(context).savedDocModel[index], context, index),
                 separatorBuilder: (context, index) =>
                     buildDivider(color: Colors.grey[300]),
                 itemCount: AppCubit.get(context).savedDocModel.length),
@@ -135,7 +135,7 @@ class SavedScreen extends StatelessWidget {
   }
 }
 
-Widget buildSavedDoc(SavedDocModel model, context) => InkWell(
+Widget buildSavedDoc(SavedDocModel model, context, index) => InkWell(
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (context) => DocumentScreen(model))),
       child: Padding(
@@ -144,16 +144,18 @@ Widget buildSavedDoc(SavedDocModel model, context) => InkWell(
           decoration: kCustomBoxDecoration.copyWith(color: kPrimaryColor),
           child: Dismissible(
             direction: DismissDirection.horizontal,
-            key: Key(model.docName),
+            key: Key(model.docName[index]),
             onDismissed: (DismissDirection direction) {
               FirebaseFirestore.instance
                   .collection("users")
                   .doc(userId)
                   .collection("saved")
                   .doc(model.docName)
-                  .delete();
-
-              customSnackBar(context: context, text: "Removed");
+                  .delete()
+                  .then((value) {
+                customSnackBar(context: context, text: "Removed");
+                AppCubit.get(context).getSavedDocs();
+              });
             },
             background: Container(
               decoration: kCustomBoxDecoration.copyWith(color: kSecondaryColor),

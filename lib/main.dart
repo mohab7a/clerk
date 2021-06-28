@@ -25,8 +25,7 @@ void main() async {
     BlocProvider(
       create: (context) => AppCubit()
         ..getUserData()
-        ..translateText(text: "")
-        ..getSavedDocs(),
+        ..translateText(text: ""),
       child: MaterialApp(
         theme: ThemeData(),
         debugShowCheckedModeBanner: false,

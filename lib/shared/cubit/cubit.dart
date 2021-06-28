@@ -188,8 +188,10 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  // Get User Saved Docs
   List<SavedDocModel> savedDocModel = [];
   void getSavedDocs() {
+    emit(UserSavedDocLoadingState());
     FirebaseFirestore.instance
         .collection("users")
         .doc(userId)
@@ -199,6 +201,7 @@ class AppCubit extends Cubit<AppStates> {
       savedDocModel = [];
       event.docs.forEach((element) {
         savedDocModel.add(SavedDocModel.fromJson(element.data()));
+        emit(UserSavedDocSuccessState());
       });
     });
   }

@@ -153,6 +153,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
+                                cubit.getSavedDocs();
                                 navigateTo(
                                     context: context, page: SavedScreen.id);
                               },

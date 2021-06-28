@@ -1,3 +1,4 @@
+// Saved Doc Model
 class SavedDocModel {
   String docName;
   String docContent;

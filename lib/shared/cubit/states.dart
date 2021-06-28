@@ -49,3 +49,7 @@ class TextCorrectionLoadingState extends AppStates {}
 class TextCorrectionSuccessState extends AppStates {}
 
 class TextCorrectionErrorState extends AppStates {}
+
+class UserSavedDocLoadingState extends AppStates {}
+
+class UserSavedDocSuccessState extends AppStates {}
