@@ -4,6 +4,7 @@ import 'package:clerk/shared/constants.dart';
 import 'package:clerk/shared/cubit/cubit.dart';
 import 'package:clerk/layout/home_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
   static String id = "Home Screen";
@@ -42,7 +43,8 @@ class HomeScreen extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 25),
                       size: size,
                       text: "Error Correction",
-                      vector: "assets/images/Mask Group 10.png",
+                      vector: Image.asset("assets/images/Mask Group 10.png",
+                          width: size.width * 0.30),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
@@ -57,7 +59,8 @@ class HomeScreen extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 25),
                       size: size,
                       text: "Translation",
-                      vector: "assets/images/Mask Group 8.png",
+                      vector: Image.asset("assets/images/Mask Group 8.png",
+                          width: size.width * 0.30),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
@@ -72,7 +75,8 @@ class HomeScreen extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 25),
                       size: size,
                       text: "Summarization",
-                      vector: "assets/images/Mask Group 1.png",
+                      vector: Image.asset("assets/images/Mask Group 1.png",
+                          width: size.width * 0.30),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
@@ -86,7 +90,13 @@ class HomeScreen extends StatelessWidget {
                     homeCard(
                       size: size,
                       text: "Text Extraction",
-                      vector: "assets/images/Mask Group 9.png",
+                      vector: Container(
+                        height: size.height * 0.14,
+                        child: SvgPicture.asset(
+                          "assets/images/OCR.svg",
+                          width: size.width * 0.25,
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,

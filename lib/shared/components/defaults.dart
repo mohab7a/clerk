@@ -121,7 +121,7 @@ Future<dynamic> navigateTo({@required context, @required String page}) =>
 
 Widget homeCard(
         {Size size,
-        String vector,
+        Widget vector,
         String text,
         Function onPressed,
         EdgeInsets margin}) =>
@@ -144,7 +144,7 @@ Widget homeCard(
                     fontSize: 24,
                     fontWeight: FontWeight.w500),
               ),
-              Image.asset(vector, width: size.width * 0.30)
+              vector
             ],
           ),
         ),

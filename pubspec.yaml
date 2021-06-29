@@ -45,6 +45,8 @@ dependencies:
   share: ^2.0.1
   conditional_builder:
   flutter_spinkit: ^5.0.0
+  flutter_svg: ^0.22.0
+
 
 dev_dependencies:
   flutter_test:
