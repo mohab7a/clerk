@@ -23,9 +23,7 @@ void main() async {
   userId = CacheHelper.getData("token");
   runApp(
     BlocProvider(
-      create: (context) => AppCubit()
-        ..getUserData()
-        ..translateText(text: ""),
+      create: (context) => AppCubit()..translateText(text: ""),
       child: MaterialApp(
         theme: ThemeData(),
         debugShowCheckedModeBanner: false,

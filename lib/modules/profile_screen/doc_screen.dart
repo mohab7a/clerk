@@ -1,13 +1,16 @@
 import 'package:clerk/models/saved_doc_model.dart';
+import 'package:clerk/shared/components/defaults.dart';
 import 'package:clerk/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class DocumentScreen extends StatelessWidget {
+  final TextEditingController controller = TextEditingController();
   SavedDocModel model;
   DocumentScreen(this.model);
   static String id = "Doc Screen";
   @override
   Widget build(BuildContext context) {
+    controller.text = model.docContent;
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -32,25 +35,13 @@ class DocumentScreen extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                model.docName,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2
-                    .copyWith(color: kPrimaryColor),
-              ),
               SizedBox(
                 height: 30,
               ),
-              Text(
-                model.docContent,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(color: Colors.grey[700]),
-              ),
+              outputWidget(context: context, outputFieldController: controller)
             ],
           ),
         ),

@@ -121,12 +121,15 @@ class SavedScreen extends StatelessWidget {
             elevation: 0,
           ),
           body: ConditionalBuilder(
-            condition: AppCubit.get(context).savedDocModel.isNotEmpty,
+            condition: state is! UserSavedDocLoadingState,
             builder: (context) => ListView.separated(
+                physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) => buildSavedDoc(
                     AppCubit.get(context).savedDocModel[index], context, index),
-                separatorBuilder: (context, index) =>
-                    buildDivider(color: Colors.grey[300]),
+                separatorBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: buildDivider(color: Colors.grey[300]),
+                    ),
                 itemCount: AppCubit.get(context).savedDocModel.length),
             fallback: (context) =>
                 Center(child: Text("No Saved Docs Yet ....")),

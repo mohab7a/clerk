@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: kBackgroundColor,
           leading: GestureDetector(
             onTap: () {
-              // AppCubit.get(context).getUserData();
+              AppCubit.get(context).getUserData();
               Navigator.pushNamed(context, ProfileScreen.id);
             },
             child: Icon(
